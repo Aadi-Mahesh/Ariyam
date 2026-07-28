@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./src/output.css" rel="stylesheet">
+    <title>Ariyam - Kerala STEM Map</title>
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+</head>
+
+<style>
+    html.dark .leaflet-popup-content-wrapper,
+    html.dark .leaflet-popup-tip {
+        background-color: #050a04; /* Dark background */
+        color: #f8fafc; /* Light text */
+    }
+    </style>
+<body class="bg-gray-100 text-gray-900 dark:bg-slate-950 dark:text-gray-100">
+   
+  <button
+        id="toggle-btn"
+        onclick="toggleDarkMode()"
+        class="absolute top-4 right-4 z-[1000] bg-white dark:bg-slate-800 dark:text-gray-100 px-4 py-2 rounded-2xl shadow-xl backdrop-blur-sm transition-colors duration-300">
+        Make it Night!
+    </button>
+
+    <!-- Filter Panel -- Need to Change -->
+    <div class="absolute top-3 left-14 z-[1000] bg-white dark:bg-slate-900 dark:text-gray-100 p-4 rounded-xl shadow-lg flex flex-col gap-2 w-64">
+        <h2 class="text-sm font-semi-bold mb-2 tracking-[0.2em]"> Filter through: </h2>
+        <div class="flex items-center gap-2">
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()"> Robotics</label>
+        </div>
+        <div class="flex items-center gap-2">
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()"> Space</label>
+        </div>
+        <div class="flex items-center gap-2">
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()"> Science Centre</label>
+        </div>
+        <div class="flex items-center gap-2">
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()"> Deep Tech</label>
+        </div>
+        <div class="flex items-center gap-2">
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation()"> Biotech</label>
+        </div>
+        <div class="flex items-center gap-2">
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()"> Marine Science</label>
+        </div>
+    </div>
+
+
+    <div id="map" style="height:100vh; width:100%;"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        const map = L.map('map').setView([10.8505, 76.2711], 7);
+
+        const lightLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        });
+
+        const darkLayer = L.tileLayer(
+            'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+            {
+                attribution: '&copy; OpenStreetMap & CARTO contributors'
+            }
+        );
+
+        lightLayer.addTo(map);
+
+       
+        let darkMode = localStorage.getItem('darkMode') === 'true';
+
+        function applyDarkModeState() {
+            if (darkMode) {
+                document.documentElement.classList.add('dark');
+                if (map.hasLayer(lightLayer)) map.removeLayer(lightLayer);
+                darkLayer.addTo(map);
+                document.getElementById('toggle-btn').textContent = 'Make it Day!';
+            } else {
+                document.documentElement.classList.remove('dark');
+                if (map.hasLayer(darkLayer)) map.removeLayer(darkLayer);
+                lightLayer.addTo(map);
+                document.getElementById('toggle-btn').textContent = 'Make it Night!';
+            }
+            localStorage.setItem('darkMode', darkMode);
+        }
+
+        function toggleDarkMode() {
+            darkMode = !darkMode;
+            applyDarkModeState();
+        }
+
+        // apply initial state
+        applyDarkModeState();
+
+        async function loadLocs() {
+            try {
+                const resp = await fetch('map_locs.json');
+
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+                
+                const locations = await resp.json();
+
+                locations.forEach(loc => {
+                    const marker = L.marker(loc.coords).addTo(map);
+                    loc.marker = marker;
+                    marker.bindPopup(`
+                        ${loc.img ? `<img src="${loc.img}" style="width:150px; border-radius:8px; margin-bottom:6px; display:block;">` : ''}
+                        <b style="font-size:14px; font-family:sans-serif;">${loc.name}</b>
+                        <div style="font-size:12px; margin-top:6px; line-height:1.4;">
+                            ${loc.desc || ''}
+                        </div>
+                    `);
+                });
+
+                window.locations = locations;
+                filterLocation();
+
+            } catch (err) {
+                console.error('Failed to load locations:', err);
+                window.locations = [];
+            }
+        }
+
+        loadLocs();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const lat = position.coords.latitude;
+                    const lng = position.coords.longitude;
+
+                    map.setView([lat, lng], 13);
+
+                    L.marker([lat, lng])
+                        .addTo(map)
+                        .bindPopup("You are here!")
+                        .openPopup();
+                },
+                (err) => {
+                    console.warn(`Geolocation error (${err.code}): ${err.message}`);
+                },
+                { timeout: 20000 }
+            );
+        } else {
+            console.warn("Geolocation is not supported by this browser.");
+        }
+
+        // Can be changed to support any given loc? 26/7/26.
+        //changed 27/7/26 to support any given loc
+        function filterLocation() {
+            const locations = window.locations || [];
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][data-type]');
+            const selectedTypes = Array.from(checkboxes)
+                .filter(cb => cb.checked)
+                .map(cb => cb.getAttribute('data-type'));
+
+            const showAll = selectedTypes.length === 0;
+
+            locations.forEach(loc => {
+                const shouldShow = showAll || selectedTypes.includes(loc.type);
+                if (shouldShow) {
+                    loc.marker.addTo(map);
+                } else {
+                    if (loc.marker && map.hasLayer(loc.marker)) map.removeLayer(loc.marker);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
