@@ -9,7 +9,7 @@ Ariyam is a map of STEM related locations for students interested in the fields 
 - Locations with descriptions
 - user location
 - dark mode switch
-- Search bar
+- Search bar (fuzzy)
 - Type filters
 
 # FUTURE list of features #

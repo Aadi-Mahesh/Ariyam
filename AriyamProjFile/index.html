@@ -28,7 +28,7 @@
         Make it Night!
     </button>
   
-      <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-4 left-4 z-[1000] bg-white dark:bg-slate-800 dark:text-gray-100 px-4 py-2 rounded-2xl shadow-xl backdrop-blur-sm transition-colors duration-300 w-64">
+    <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-4 left-4 md:left-14 z-[1000] bg-white/60 dark:bg-slate-800/60 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-xl shadow-lg backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300 w-64 focus:outline-none">
 
 
 
@@ -59,8 +59,17 @@
     <div id="map" style="height:100vh; width:100%;"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://unpkg.com/fuse.js@7.5.0/dist/fuse.min.js"></script>
-    <script>
+    <script type="module">
+     
+        try {
+            const mod = await import('./vendor/fuse.min.mjs');
+          
+            window.Fuse = (mod && mod.default) ? mod.default : mod;
+        } catch (err) {
+            console.warn('Failed to load local Fuse module:', err);
+        }
+    </script>
+    <script type="module">
 
         const map = L.map('map').setView([10.8505, 76.2711], 7);
 
@@ -126,35 +135,68 @@
                 window.locations = locations;
                 filterLocation();
 
+                //copy paste changed location of ts
+           // ensure each loc has an id
+
+             window.locations.forEach((loc, idx) => {
+                      loc.id = loc.id || `loc-${idx}`; 
+});
+
+
+        // initialize Fuse after locations are set
+        const fuseSearch = new Fuse(window.locations, {
+            keys: ['name', 'desc', 'type'],
+            threshold: 0.4,
+            includeScore: true,
+        });
+
+        // debounce helper
+        function debounce(fn, wait = 180) {
+            let t;
+            return function(...args) {
+                clearTimeout(t);
+                t = setTimeout(() => fn.apply(this, args), wait);
+            };
+        }
+
+        const searchBox = document.getElementById('search-box');
+        searchBox.addEventListener('input', debounce((e) => {
+            const q = (e.target.value || '').trim();
+            const results = q ? fuseSearch.search(q).map(r => r.item) : window.locations;
+            applySearchResults(results);
+        }, 180));
+
+        // unified visibility function: accepts raw items
+        function applySearchResults(items) {
+            const matches = (items && items.length && items[0].item) ? items.map(r => r.item) : (items || []);
+            const matchingIds = new Set(matches.map(i => i.id));
+
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][data-type]');
+            const selectedTypes = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.getAttribute('data-type'));
+            const showAllTypes = selectedTypes.length === 0;
+            const showAllSearch = matches.length === 0;
+
+            (window.locations || []).forEach(loc => {
+                const passesSearch = showAllSearch || matchingIds.has(loc.id);
+                const passesType = showAllTypes || selectedTypes.includes(loc.type);
+                if (passesSearch && passesType) {
+                    loc.marker.addTo(map);
+                } else if (loc.marker && map.hasLayer(loc.marker)) {
+                    map.removeLayer(loc.marker);
+                }
+            });
+        }
+
             } catch (err) {
                 console.error('Failed to load locations:', err);
                 window.locations = [];
             }
         }
-
+              
         loadLocs();
         
         
-        //fuse thingys should go here but learn first
-        const fuseSearch = new Fuse(locations, {
-            keys: ['name', 'desc', 'type'],
-            threshold: 0.4,
-            includeScore: true,
         
-        });
-        document.getElementById('search-box').addEventListener('input', (e) => {
-            const query = e.target.value.trim();
-            const results = fuseSearch.search(query);
-            applySearchResults(results);
-            }
-        )
-        
-
-        //fuzzy intialization
-        function applyfuseresults(results) {
-            console.log('Search results:', results);
-        }
-
 
 
         if (navigator.geolocation) {
@@ -199,18 +241,11 @@
                 }
             });
         }
- // TEMPORARY< CHANGE TOMORROW
-        function applySearchResults(matches) {
-            const matchingIds = new Set(matches.map(loc => loc.id));
 
-            locations.forEach(loc => {
-                if (matchingIds.has(loc.id)) {
-                    loc.marker.addTo(map);
-                } else {
-                    if (loc.marker && map.hasLayer(loc.marker)) map.removeLayer(loc.marker);
-                }
-            });
-        }
+
+
+
+      
     </script>
 </body>
 </html>
