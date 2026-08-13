@@ -11,11 +11,12 @@ Ariyam is a map of STEM related locations for students interested in the fields 
 - dark mode switch
 - Search bar (fuzzy)
 - Type filters
+- custom signs for each type of location
 
 # FUTURE list of features #
 
 - Images for locations
 - More developed decription
 - more locations
-- custom signs for each type of location
+
 

@@ -37,22 +37,28 @@
     <div class="absolute top-16 left-15 md:left-15 z-[3000] bg-white/60 dark:bg-slate-900/60 dark:text-gray-100 p-4 rounded-xl shadow-lg flex flex-col gap-2 w-64 backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300">
         <h2 class="text-sm font-semibold mb-2 tracking-[0.2em] text-gray-900 dark:text-gray-100"> Filter through: </h2>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()" > Robotics</label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()" > Robotics</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()"   > Space</label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()"   > Space</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()" > Science Centre</label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()" > Science Centre</label>
+        </div>
+        <div class="flex items-center gap-2">   
+            <label class="flex items-center gap-2">
+                <input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()" > Deep Tech</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()" > Deep Tech</label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation ()" > Biotech</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation ()" > Biotech</label>
-        </div>
-        <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()" > Marine Science</label>
+            <label class="flex items-center gap-2">
+                <input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()" > Marine Science</label>
         </div>
     </div>
 
@@ -63,8 +69,19 @@
   
 
     <script type="module">
+
             import Fuse from './vendor/fuse.min.mjs';
-        const map = L.map('map').setView([10.8505, 76.2711], 7);
+             
+                              const typeIcons = {
+    "Robotics": "./icons/robot.svg",
+    "Space": "./icons/space.svg",
+    "Science Centre": "./icons/sciencec.svg",
+    "Deep Tech": "./icons/dtech.svg",
+    "Biotech": "./icons/biotech.svg",
+    "Marine Science": "./icons/marine.svg"
+};
+        
+            const map = L.map('map').setView([10.8505, 76.2711], 7);
 
         const lightLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; OpenStreetMap contributors'
@@ -114,9 +131,21 @@
                 if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
                 
                 const locations = await resp.json();
+        
 
                 locations.forEach(loc => {
-                    const marker = L.marker(loc.coords).addTo(map);
+                
+         
+                const icon = L.divIcon({
+                    html: `<img src="${typeIcons[loc.type] || './icons/default.svg'}" style="width:30px; height:30px;">`,
+                    className: '',
+                    iconSize: [30, 30],
+                    iconAnchor: [15, 15]
+                });
+
+                const marker = L.marker(loc.coords,  {
+                   icon: icon
+                }).addTo(map);
                     loc.marker = marker;
                     marker.bindPopup(`
                         ${loc.img ? `<img src="${loc.img}" style="width:150px; border-radius:8px; margin-bottom:6px; display:block;">` : ''}
@@ -202,10 +231,15 @@
 
                     map.setView([lat, lng], 13);
 
-                    L.marker([lat, lng])
-                        .addTo(map)
-                        .bindPopup("You are here!")
-                        .openPopup();
+                         const userIcon = L.divIcon({
+                                                       html: `<img src="./icons/location.svg" style="width:30px; height:30px;">`,
+                                                      className: '',
+                                                        iconSize: [40, 40],
+                                                        iconAnchor: [15, 15]
+                                                    });
+
+                    const userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(map);
+                    userMarker.bindPopup("You are here!").openPopup();
                 },
                 (err) => {
                     console.warn(`Geolocation error (${err.code}): ${err.message}`);
@@ -227,7 +261,6 @@
          : window.locations;
         applySearchResults(results, q);
 
-        
         
         }
 
