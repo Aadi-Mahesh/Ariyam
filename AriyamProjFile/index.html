@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,30 +29,30 @@
         Make it Night!
     </button>
   
-    <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-4 left-4 md:left-14 z-[1000] bg-white/60 dark:bg-slate-800/60 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-xl shadow-lg backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300 w-64 focus:outline-none">
+    <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-4 left-15 md:left-15 z-[1000] bg-white/60 dark:bg-slate-900/60 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-xl shadow-lg backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300 w-64 focus:outline-none">
 
 
 
     <!-- Filter Panel -- Need to Change -->
-    <div class="absolute top-14 left-14 z-[1000] bg-white dark:bg-slate-900 dark:text-gray-100 p-4 rounded-xl shadow-lg flex flex-col gap-2 w-64">
-        <h2 class="text-sm font-semi-bold mb-2 tracking-[0.2em]"> Filter through: </h2>
+    <div class="absolute top-16 left-15 md:left-15 z-[3000] bg-white/60 dark:bg-slate-900/60 dark:text-gray-100 p-4 rounded-xl shadow-lg flex flex-col gap-2 w-64 backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300">
+        <h2 class="text-sm font-semibold mb-2 tracking-[0.2em] text-gray-900 dark:text-gray-100"> Filter through: </h2>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()"> Robotics</label>
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()" > Robotics</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()"> Space</label>
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()"   > Space</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()"> Science Centre</label>
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()" > Science Centre</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()"> Deep Tech</label>
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()" > Deep Tech</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation()"> Biotech</label>
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation ()" > Biotech</label>
         </div>
         <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2"><input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()"> Marine Science</label>
+            <label class="flex items-center gap-2"><input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()" > Marine Science</label>
         </div>
     </div>
 
@@ -59,18 +60,10 @@
     <div id="map" style="height:100vh; width:100%;"></div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script type="module">
-     
-        try {
-            const mod = await import('./vendor/fuse.min.mjs');
-          
-            window.Fuse = (mod && mod.default) ? mod.default : mod;
-        } catch (err) {
-            console.warn('Failed to load local Fuse module:', err);
-        }
-    </script>
-    <script type="module">
+  
 
+    <script type="module">
+            import Fuse from './vendor/fuse.min.mjs';
         const map = L.map('map').setView([10.8505, 76.2711], 7);
 
         const lightLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -109,9 +102,11 @@
             applyDarkModeState();
         }
 
+        window.toggleDarkMode = toggleDarkMode;
+
         // apply initial state
         applyDarkModeState();
-
+ 
         async function loadLocs() {
             try {
                 const resp = await fetch('map_locs.json');
@@ -133,8 +128,7 @@
                 });
 
                 window.locations = locations;
-                filterLocation();
-
+                
                 //copy paste changed location of ts
            // ensure each loc has an id
 
@@ -149,7 +143,8 @@
             threshold: 0.4,
             includeScore: true,
         });
-
+        window.fuseSearch = fuseSearch;
+          filterLocation(); 
         // debounce helper
         function debounce(fn, wait = 180) {
             let t;
@@ -163,18 +158,28 @@
         searchBox.addEventListener('input', debounce((e) => {
             const q = (e.target.value || '').trim();
             const results = q ? fuseSearch.search(q).map(r => r.item) : window.locations;
-            applySearchResults(results);
+            applySearchResults(results, q);
         }, 180));
 
         // unified visibility function: accepts raw items
-        function applySearchResults(items) {
-            const matches = (items && items.length && items[0].item) ? items.map(r => r.item) : (items || []);
-            const matchingIds = new Set(matches.map(i => i.id));
+        
 
+            } catch (err) {
+                console.error('Failed to load locations:', err);
+                window.locations = [];
+            }
+        }
+              
+        loadLocs();
+        
+        function applySearchResults(items, query) {
+            
+            const matchingIds = new Set(items.map(i => i.id));
+                 
             const checkboxes = document.querySelectorAll('input[type="checkbox"][data-type]');
             const selectedTypes = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.getAttribute('data-type'));
             const showAllTypes = selectedTypes.length === 0;
-            const showAllSearch = matches.length === 0;
+            const showAllSearch = query === '';
 
             (window.locations || []).forEach(loc => {
                 const passesSearch = showAllSearch || matchingIds.has(loc.id);
@@ -186,16 +191,6 @@
                 }
             });
         }
-
-            } catch (err) {
-                console.error('Failed to load locations:', err);
-                window.locations = [];
-            }
-        }
-              
-        loadLocs();
-        
-        
         
 
 
@@ -223,26 +218,27 @@
 
         // Can be changed to support any given loc? 26/7/26.
         //changed 27/7/26 to support any given loc
+        //Change to compute search and call applysearchreults 13/8/26
+
         function filterLocation() {
-            const locations = window.locations || [];
-            const checkboxes = document.querySelectorAll('input[type="checkbox"][data-type]');
-            const selectedTypes = Array.from(checkboxes)
-                .filter(cb => cb.checked)
-                .map(cb => cb.getAttribute('data-type'));
+        const q = document.getElementById('search-box').value.trim();
+         
+        const results = q ? window.fuseSearch.search(q).map(r => r.item)
+         : window.locations;
+        applySearchResults(results, q);
 
-            const showAll = selectedTypes.length === 0;
-
-            locations.forEach(loc => {
-                const shouldShow = showAll || selectedTypes.includes(loc.type);
-                if (shouldShow) {
-                    loc.marker.addTo(map);
-                } else {
-                    if (loc.marker && map.hasLayer(loc.marker)) map.removeLayer(loc.marker);
-                }
-            });
+        
+        
         }
 
+        window.filterLocation = filterLocation;
 
+        function searchBoxListen() {
+
+        }
+         
+        
+           //ta daaa, the end
 
 
       
