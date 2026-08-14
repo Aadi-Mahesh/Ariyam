@@ -51,3 +51,16 @@ AriyamProjFile/src/output-cli.css
 # Keep vendor/ if you intentionally vendored libs; don't ignore vendor/
 # If you want to ignore everything under vendor/, uncomment the next line:
 # vendor/
+
+# Ignore icon backup folder created during edits
+AriyamProjFile/icons/assistant-backup/
+
+# Editor swap and temporary files
+*~
+*.swp
+*.swx
+
+# Local runtime / cache directories
+.local/
+tmp/
+.cache/

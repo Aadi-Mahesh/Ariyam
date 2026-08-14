@@ -13,6 +13,8 @@
 
 </head>
 
+<body>
+
 <style>
     html.dark .leaflet-popup-content-wrapper,
     html.dark .leaflet-popup-tip {
@@ -20,15 +22,29 @@
         color: #f8fafc; /* Light text */
     }
     </style>
-<body class="bg-gray-100 text-gray-900 dark:bg-slate-950 dark:text-gray-100">
-   
-  <button
+    <div id="welcome-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
+     style="position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;">
+        <div class="dark:bg-slate-900/60 text-gray-900 dark:text-gray-100 p-6 rounded-xl shadow-2xl w-[50vw] min-h-[55vh] text-center backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300">
+            <h2 class="text-3xl font-bold mb-4 tracking-[0.2em] text-gray-900 dark:text-gray-100">
+                Welcome to Ariyam!</h2>
+            <p class="mb-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
+                Explore the STEM locations in Kerala. Use the search box and filters to find what you're looking for.</p>
+                <div class="inline-block rounded-full p-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 mb-6">
+                <button id="modalclose" onclick="closeModal()"
+             class="rounded-full px-6 py-2 bg-white/95 dark:bg-slate-800 text-gray-900 dark:text-white font-semibold shadow-md transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400">
+                    Get Started
+                </button>
+                </div>
+        </div>
+</div>
+
+            <button
         id="toggle-btn"
         onclick="toggleDarkMode()"
         class="absolute top-4 right-4 z-[1000] bg-white dark:bg-slate-800 dark:text-gray-100 px-4 py-2 rounded-2xl shadow-xl backdrop-blur-sm transition-colors duration-300">
         Make it Night!
     </button>
-  
+
     <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-4 left-15 md:left-15 z-[1000] bg-white/60 dark:bg-slate-900/60 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-xl shadow-lg backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300 w-64 focus:outline-none">
 
 
@@ -73,14 +89,19 @@
             import Fuse from './vendor/fuse.min.mjs';
              
                               const typeIcons = {
-    "Robotics": "./icons/robot.svg",
+    "Robotics": "./icons/robotics.svg",
     "Space": "./icons/space.svg",
     "Science Centre": "./icons/sciencec.svg",
     "Deep Tech": "./icons/dtech.svg",
     "Biotech": "./icons/biotech.svg",
     "Marine Science": "./icons/marine.svg"
 };
-        
+       function closeModal() {
+            document.getElementById('welcome-modal').style.display = 'none';
+
+
+        }
+        window.closeModal = closeModal;
             const map = L.map('map').setView([10.8505, 76.2711], 7);
 
         const lightLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
