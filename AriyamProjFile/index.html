@@ -22,21 +22,18 @@
         color: #f8fafc; /* Light text */
     }
     </style>
-    <div id="welcome-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm"
-     style="position:fixed;inset:0;z-index:5000;display:flex;align-items:center;justify-content:center;">
-        <div class="dark:bg-slate-900/60 text-gray-900 dark:text-gray-100 p-6 rounded-xl shadow-2xl w-[50vw] min-h-[55vh] text-center backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300">
-            <h2 class="text-3xl font-bold mb-4 tracking-[0.2em] text-gray-900 dark:text-gray-100">
-                Welcome to Ariyam!</h2>
-            <p class="mb-6 text-lg leading-relaxed text-gray-700 dark:text-gray-300">
-                Explore the STEM locations in Kerala. Use the search box and filters to find what you're looking for.</p>
-                <div class="inline-block rounded-full p-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-rose-500 mb-6">
-                <button id="modalclose" onclick="closeModal()"
-             class="rounded-full px-6 py-2 bg-white/95 dark:bg-slate-800 text-gray-900 dark:text-white font-semibold shadow-md transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-400">
-                    Get Started
-                </button>
-                </div>
-        </div>
-</div>
+        
+       <div id="welcome-screen-modal" class=" fixed inset-0 z-5000 flex items-center justify-center bg-black/50 backdrop-blur-3xl"> 
+            <div class="bg-white/60 dark:bg-slate-900/60 dark:text-gray-100 p-4 rounded-xl shadow-lg flex flex-col gap-2 w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] max-w-5xl backdrop-blur-sm border border-white/10 dark:border-black/20 transition-colors duration-300">
+                <h1 class="text-2xl mask-radial-from-neutral-950 font-extrabold mb-2 tracking-[0.2em] text-gray-900 dark:text-gray-100">Welcome to Ariyam!</h1>  
+
+                <p class="">Skibidi tung tung 15/8/26</p>
+                 
+             <div class = "">
+                <button class="" onclick="closeModal()">Close</button>
+             </div>
+            </div>
+       </div >
 
             <button
         id="toggle-btn"
@@ -87,7 +84,6 @@
     <script type="module">
 
             import Fuse from './vendor/fuse.min.mjs';
-             
                               const typeIcons = {
     "Robotics": "./icons/robotics.svg",
     "Space": "./icons/space.svg",
