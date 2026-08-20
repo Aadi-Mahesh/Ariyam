@@ -140,8 +140,8 @@
         "name": "Indian Institute of Science (IISc) & CeNSE",
         "coords": [13.0184, 77.5647],
         "type": "Deep Tech",
-        "img": "",
-        "desc": ""
+        "img": "./imgs/iisc.jpg",
+        "desc": "One of indias top research institutes featuring nanotechnology and microprocessor technology labs (CeNSE) and top deep-tech labs. Campus visits are restricted and require prior approval, except during the massive annual Open Day..."
     },
     {
         "id": "rajiv-gandhi-centre",

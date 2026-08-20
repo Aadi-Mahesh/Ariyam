@@ -1,2 +1,14 @@
 @import "tailwindcss";
+
+@font-face {
+	font-family: "Jaro";
+	src: url("./fonts/Jaro-Regular.ttf") format("trustype");
+}
+@font-face {
+	font-family: "Inder";
+	src: url("./fonts/Inder-Regular.ttf") format("trustype");
+}
+@theme { --font-jaro: "Jaro", sans-serif; --font-inder: "Inder", sans-serif; }
+
+@source "../index.html";
 @custom-variant dark (&:where(.dark, .dark *));

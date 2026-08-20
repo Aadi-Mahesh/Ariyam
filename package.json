@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "flowbite": "^4.0.2",
     "fuse.js": "^7.5.0"
   }
 }
