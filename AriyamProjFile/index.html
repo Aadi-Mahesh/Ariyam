@@ -4,88 +4,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./src/output.css" rel="stylesheet">
-    <title>Ariyam - Kerala STEM Map</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+Malayalam:wght@300;400;500;700&family=IBM+Plex+Mono:wght@300;400;500&family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap"
+        rel="stylesheet">
+    <link href="./src/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../shared.css">
+    <title>Ariyam - Kerala STEM Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 
 <body>
-      
-       <div id="welcome-screen-modal" class="fixed inset-0 z-5000 flex items-center justify-center bg-black/30 backdrop-blur-xl border border-black">
-            <div class="bg-white/20 dark:bg-slate-900/40 dark:text-gray-100 p-10 rounded-2xl shadow-2xl flex flex-col gap-4 w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] max-w-5xl backdrop-blur-xl border border-white/20 dark:border-black/20  transition-colors duration-300 ">
-                    <h1 class="text-3xl font-jaro mb-2 tracking-[0.2em] text-gray-900 dark:text-gray-100">Welcome to Ariyam!</h1>
-
-                                <div id="Modal-Images" class="bg-black/10 dark:bg-black/20 rounded-2xl border border-white/10 overflow-hidden aspect-[5/2]"></div>
-
-
-                <p class="text-sm md:text-base text-justify font-inder leading-relaxed">Ariyam is a student made map of STEM locations in kerala and neighbouring states of South India.
-                     It is built to help students interested in related feilds to find out more about this feild by going to certain locations that help nurture their interests. </p>
-
-             <div id="button-wrapper" class=" inline-flex self-start p-0.5 bg-gradient-to-r from-blue-500 to-purple-500 dark:from-red-700 dark:to-orange-700 rounded-lg justify-between items-center">
-                <button class="px-4 py-2 bg-gray-300/60 hover:bg-gray-200/60 dark:bg-gray-700/60 dark:hover:bg-gray-800/60 dark:text-white text-gray-900 rounded-lg font-medium transition-colors duration-100 shadow-md" onclick="closeModal()">Explore Ariyam?</button>
-
-                          <a href="https://github.com/Aadi-Mahesh" target="_blank" rel="noopener noreferrer">
-                     <img src="./icons/robotics.svg" alt="guthib" class="w-5 h-5">
-                    </a>
-
-             
-             </div>
-
+    <div id="welcome-screen-modal" class="fixed inset-0 z-5000 flex items-center justify-center bg-[var(--ink)]/30">
+        <div class="bg-[var(--paper)] bg-[image:var(--texture-paper)] p-10 rounded-xl shadow-[var(--shadow-paper)] flex flex-col gap-4 w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] max-w-5xl border border-[var(--border)] transition-colors duration-300">
+            <h1 class="text-3xl font-jaro mb-2 tracking-[0.2em] text-[var(--ink)]">
+                Welcome to Ariyam!
+            </h1>
+            <div id="Modal-Images" class="bg-[var(--paper-2)] bg-[image:var(--texture-paper)] rounded-[var(--radius-sm)] border border-[var(--border)] overflow-hidden aspect-[5/2] shadow-[var(--shadow-sm)]">
             </div>
-       </div>
-
-            <button
-        id="toggle-btn"
-        onclick="toggleDarkMode()"
-        class="fixed top-4 right-5 z-5000 bg-white/60 dark:bg-slate-800/60 dark:text-gray-100 px-4 py-2 rounded-2xl shadow-xl border border-black backdrop-blur-xs transition-colors duration-300">
-        Make it Night!
-    </button>
-
-    <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-5 left-8 z-1000 bg-white/60 dark:bg-slate-900/60 text-gray-900 dark:text-gray-100 px-4 py-2 rounded-xl shadow-lg backdrop-blur-xs transition-colors duration-300 w-64 focus:outline-none">
-
-
-
-    <!-- Filter Panel -- Need to Change -->
-    <div class="absolute top-17 left-8 z-1000 bg-white/60 dark:bg-slate-900/60 dark:text-gray-100 p-4 rounded-xl shadow-lg flex flex-col gap-2 w-64 backdrop-blur-xs transition-colors duration-300">
-        <h2 class="text-sm font-semibold mb-2 tracking-[0.2em] text-gray-900 dark:text-gray-100"> Filter through: </h2>
-        <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2">
-                <input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()" > Robotics</label>
-        </div>
-        <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2">
-                <input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()"   > Space</label>
-        </div>
-        <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2">
-                <input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()" > Science Centre</label>
-        </div>
-        <div class="flex items-center gap-2">   
-            <label class="flex items-center gap-2">
-                <input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()" > Deep Tech</label>
-        </div>
-        <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2">
-                <input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation ()" > Biotech</label>
-        </div>
-        <div class="flex items-center gap-2">
-            <label class="flex items-center gap-2">
-                <input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()" > Marine Science</label>
+            <p class="text-sm md:text-lg text-justify font-inder leading-relaxed text-[var(--ink-2)]">
+                Ariyam is a student made map of STEM locations in Kerala and neighbouring states of South India.
+                It is built to help students interested in related fields to find out more about their passion by going to certain locations that help nurture their interests.
+            </p>
+            <div class="flex justify-between items-center w-full">
+                <button class="btn-primary" onclick="closeModal()">
+                         Explore Ariyam?
+                </button>
+                <div id="links-wrapper" class="inline-flex self-start p-1 bg-[var(--paper-3)] rounded-[var(--radius-sm)] items-center shadow-[var(--shadow-sm)]">
+                    <a href="https://github.com/Aadi-Mahesh" target="_blank" rel="noopener noreferrer" class="group relative flex items-center">
+                        <img src="./icons/github.svg" alt="GitHub" class="w-6 h-6 transition-transform duration-200 group-hover:scale-110">
+                        <span class="absolute right-full m-2 whitespace-nowrap rounded-[var(--radius-sm)] bg-[var(--ink)] px-2 py-1 text-[var(--paper)] opacity-0 pointer-events-none transition-all duration-300 group-hover:opacity-100">
+                            @Aadi-Mahesh
+                        </span>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 
+    <button id="toggle-btn" onclick="toggleDarkMode()" class="btn-ghost">
+            Make it Night!
+    </button>
 
+    <div class="">
+        <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-5 left-8 z-1000 bg-[var(--paper)] bg-[image:var(--texture-paper)] text-[var(--ink)] px-4 py-2 rounded-[var(--radius-sm)] shadow-[var(--shadow-sm)] border border-[var(--border)] transition-colors duration-300 w-64 focus:outline-none">
+        <!-- Filter Panel -->
+        <div class="absolute top-17 left-8 z-1000
+            bg-[var(--paper-2)] bg-[image:var(--texture-paper)]
+            text-[var(--ink)]
+            p-4
+            rounded-[var(--radius-sm)]
+            shadow-[var(--shadow-paper)]
+            border border-[var(--border)]
+            flex flex-col gap-2
+            w-64
+            transition-colors duration-300">
+            <h2 class="text-sm font-semibold mb-2 tracking-[0.2em] text-[var(--ink)]">
+                Filter through:
+            </h2>
+            <div class="flex items-center gap-2">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()">
+                    Robotics
+                </label>
+            </div>
+            <div class="flex items-center gap-2">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()">
+                    Space
+                </label>
+            </div>
+            <div class="flex items-center gap-2">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()">
+                    Science Centre
+                </label>
+            </div>
+            <div class="flex items-center gap-2">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()">
+                    Deep Tech
+                </label>
+            </div>
+            <div class="flex items-center gap-2">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation()">
+                    Biotech
+                </label>
+            </div>
+            <div class="flex items-center gap-2">
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()">
+                    Marine Science
+                </label>
+            </div>
+        </div>
+    </div>
+    </div>
     <div id="map" style="height:100vh; width:100%;"></div>
-
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-
-  
-
     <script type="module">
         import Fuse from './vendor/fuse.min.mjs';
 
@@ -141,6 +159,13 @@
             applyDarkModeState();
         }
 
+        function showDetails (id) {
+            document.getElementById('locs-content-modal');
+            document.getElementById('inner-div-locs');
+            loc.marker.closePopup();
+
+        }
+
         window.toggleDarkMode = toggleDarkMode;
 
         // apply initial state
@@ -173,7 +198,11 @@
                         ${loc.img ? `<img src="${loc.img}" style="width:150px; border-radius:8px; margin-bottom:6px; display:block;">` : ''}
                         <b style="font-size:14px; font-family:sans-serif;">${loc.name}</b>
                         <div style="font-size:12px; margin-top:6px; line-height:1.4;">
-                            ${loc.desc || ''}
+                            ${loc.shortDesc || ''}
+                        </div>
+                         <div>
+                        <a href="" id="readmore" style="" onClick="showDetails('${loc.id}') return false"> Read More! </a>
+                               
                         </div>
                     `);
                 });
@@ -186,11 +215,14 @@
              window.locations.forEach((loc, idx) => {
                       loc.id = loc.id || `loc-${idx}`; 
 });
+             function seemore (readmore) {
+                
+             }
 
 
         // initialize Fuse after locations are set
         const fuseSearch = new Fuse(window.locations, {
-            keys: ['name', 'desc', 'type'],
+            keys: ['name', 'shortDesc', 'type'],
             threshold: 0.4,
             includeScore: true,
         });
@@ -289,18 +321,12 @@
 
         window.filterLocation = filterLocation;
 
-        function searchBoxListen() {
-
-        }
-
         
            //ta daaa, the end
 
 
       
     </script>
-        
-
-    
 </body>
+
 </html>

@@ -6,157 +6,198 @@
         "coords": [9.9926, 76.3214],
         "type": "Robotics",
         "img": "",
-        "desc": "Robotics makerspace for kids and teenagers with great facilities for Ai and robotics, the main hub of UWC in India (I think)"
+        "shortDesc": "Robotics makerspace for kids and teenagers with great facilities for Ai and robotics, the main hub of UWC in India (I think)",
+        "longDesc": "placeholder text for clicktoseemore. and i wonder, if you know. what it meannssss (yeah but he made grauation tho.) "    
     },
+
     {
         "id": "uwr-thiruvananthapuram",
         "name": "UWR - Thiruvananthapuram",
         "coords": [8.4979, 76.9481],
         "type": "Robotics",
         "img": "",
-        "desc": "Robotics makerspace for kids and teenagers with great facilities for Ai and Robotics"
+        "shortDesc": "Robotics makerspace for kids and teenagers with great facilities for Ai and Robotics",
+        "longDesc": ""    
     },
+
     {
         "id": "intfablab",
         "name": "Integrated Startup Complex & Super Fab Lab",
         "coords": [10.0428, 76.3245],
         "type": "Robotics",
         "img": "",
-        "desc": "Fabrication lab with 3D printing, laser cutting, CNC milling and other facilities for prototyping and manufacturing"
+        "shortDesc": "Fabrication lab with 3D printing, laser cutting, CNC milling and other facilities for prototyping and manufacturing",
+        "longDesc": ""    
     },
+
     {
         "id": "maker-village",
         "name": "Maker Village",
         "coords": [10.0435, 76.3251],
         "type": "Robotics",
         "img": "",
-        "desc": "India's largest Electronic Incubator & ESDM facility under the aegis of MeitY, Govt of India with IIITM-K as implementation agency."
+        "shortDesc": "India's largest Electronic Incubator & ESDM facility under the aegis of MeitY, Govt of India with IIITM-K as implementation agency.",
+        "longDesc": ""    
     },
+
     {
         "id": "kochi-robotics-club",
         "name": "Kochi Robotics Club",
         "coords": [10.0076, 76.3557],
         "type": "Robotics",
         "img": "",
-        "desc": "Provides STEM education based on robotics, engineering, automation, sustainable and renewable energy. They provide courses for kids"
+        "shortDesc": "Provides STEM education based on robotics, engineering, automation, sustainable and renewable energy. They provide courses for kids",
+        "longDesc": ""    
     },
+
     {
         "id": "space-museum",
         "name": "Space Museum (ISRO-VSSC)",
         "coords": [8.5334, 76.8673],
         "type": "Space",
         "img": "",
-        "desc": "major space research centre of ISRO, focusing on rocket and space vehicles for India's satellite programm. Museum containing real rocket components, spacecraft models, launch vehicle exhibits, and interactive displays"
+        "shortDesc": "major space research centre of ISRO, focusing on rocket and space vehicles for India's satellite programm. Museum containing real rocket components, spacecraft models, launch vehicle exhibits, and interactive displays",
+        "longDesc": ""    
     },
+
     {
         "id": "iist",
         "name": "Indian Institute of Space Science and Technology (IIST)",
         "coords": [8.6225, 77.0322],
         "type": "Space",
         "img": "",
-        "desc": "Started by ISRO to nurture space science and technology talent in India. Public events such as open days, exhibitions, and lectures are sometimes organised."
+        "shortDesc": "Started by ISRO to nurture space science and technology talent in India. Public events such as open days, exhibitions, and lectures are sometimes organised.",
+        "longDesc": ""    
     },
+
     {
         "id": "hal-heritage-centre",
         "name": "HAL Heritage Centre and Aerospace Museum",
         "coords": [12.9548, 77.6725],
         "type": "Space",
         "img": "",
-        "desc": "howcases India's aviation and aerospace history through retired aircraft, helicopters, jet engines, flight simulators, and interactive exhibits. Operated by Hindustan Aeronautics Limited (HAL)"
+        "shortDesc": "howcases India's aviation and aerospace history through retired aircraft, helicopters, jet engines, flight simulators, and interactive exhibits. Operated by Hindustan Aeronautics Limited (HAL)",
+        "longDesc": ""    
     },
+
     {
         "id": "sdsc",
         "name": "Satish Dhawan Space Centre (SDSC-SHAR) Visitor Complex",
         "coords": [13.72, 80.23],
         "type": "Space",
         "img": "",
-        "desc": "SRO's primary spaceport and the launch site for nearly all of India's orbital space missions. They organise public veiwing sessions for the visitors to see launches from a safe distance"
+        "shortDesc": "SRO's primary spaceport and the launch site for nearly all of India's orbital space missions. They organise public veiwing sessions for the visitors to see launches from a safe distance",
+        "longDesc": ""    
     },
+
     {
         "id": "regional-science-centre",
         "name": "Regional Science Centre and Planetarium",
         "coords": [11.2631, 75.7856],
         "type": "Science Centre",
         "img": "",
-        "desc": "Large planetarium and science centre with interactive exhibits, science shows, and educational programs. Science gallerys, activity corners, aquatic life corners, science parks and more for students and those interested to explore."
+        "shortDesc": "Large planetarium and science centre with interactive exhibits, science shows, and educational programs. Science gallerys, activity corners, aquatic life corners, science parks and more for students and those interested to explore.",
+        "longDesc": ""    
     },
+
     {
         "id": "vijnan-sagar",
         "name": "Vijnan Sagar Science and Technology Park",
         "coords": [10.5622, 76.2231],
         "type": "Science Centre",
         "img": "",
-        "desc": "Educational destination with interactive physics and chemistry labs allowing students to conduct experiments and learn scientific principles. It also includes an ISRO pavilion showcasing space technology and satelite models."
+        "shortDesc": "Educational destination with interactive physics and chemistry labs allowing students to conduct experiments and learn scientific principles. It also includes an ISRO pavilion showcasing space technology and satelite models.",
+        "longDesc": ""    
     },
+
     {
         "id": "ksst-museum",
         "name": "KSST Museum & Priyadarsini Planetarium",
         "coords": [8.5065, 76.9442],
         "type": "Science Centre",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
     },
+
     {
         "id": "science-park",
         "name": "Science Park (Kannur)",
         "coords": [11.8741, 75.3711],
         "type": "Science Centre",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
     },
+
     {
         "id": "vitm",
         "name": "Visvesvaraya Industrial and Technological Museum (VITM)",
         "coords": [12.9752, 77.5963],
         "type": "Science Centre",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
     },
+
     {
         "id": "gd-science-museum",
         "name": "GD Science Museum & Experimenta",
         "coords": [11.0012, 76.9745],
         "type": "Science Centre",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
     },
+
     {
         "id": "duck",
         "name": "Digital University Kerala (DUK)",
         "coords": [8.5639, 76.8814],
         "type": "Deep Tech",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
     },
+
     {   "id": "cdac-technopark",
         "name": "C-DAC Technopark",
         "coords": [8.5562, 76.8821],
         "type": "Deep Tech",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
     },
+
     {
         "id": "iisc",
         "name": "Indian Institute of Science (IISc) & CeNSE",
         "coords": [13.0184, 77.5647],
         "type": "Deep Tech",
         "img": "./imgs/iisc.jpg",
-        "desc": "One of indias top research institutes featuring nanotechnology and microprocessor technology labs (CeNSE) and top deep-tech labs. Campus visits are restricted and require prior approval, except during the massive annual Open Day..."
+        "shortDesc": "One of indias top research institutes featuring nanotechnology and microprocessor technology labs (CeNSE) and top deep-tech labs. Campus visits are restricted and require prior approval, except during the massive annual Open Day...",
+        "longDesc": ""    
     },
+
     {
         "id": "rajiv-gandhi-centre",
         "name": "Rajiv Gandhi Centre for Biotechnology (RGCB)",
         "coords": [8.4812, 76.9631],
         "type": "Biotech",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
     },
+
     {
         "id": "cmfri",
         "name": "Central Marine Fisheries Research Institute (CMFRI)",
         "coords": [9.9821, 76.2734],
         "type": "Marine Science",
         "img": "",
-        "desc": ""
+        "shortDesc": "",
+        "longDesc": ""    
+        
     }
+
 ] 
