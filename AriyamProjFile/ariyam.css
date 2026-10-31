@@ -1,0 +1,227 @@
+/* ============================================================
+   ariyam.css: everything specific to the Ariyam map page.
+   Tokens and shared components (buttons, modal, badges, toast...)
+   come from ../../shared.css. Nothing here is needed by Arivu.
+============================================================ */
+
+/* ---------- Base (does not depend on Tailwind's preflight) ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+    overflow: hidden;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+}
+button, input { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+/* ---------- Layout tokens ---------- */
+:root { --dock-w: 21rem; }
+
+/* ---------- Map surface ---------- */
+#map { position: fixed; inset: 0; z-index: 0; }
+@media (min-width: 641px) {
+    #map { left: var(--dock-w); }
+    html.dock-closed #map { left: 0; }
+}
+.leaflet-container { background: var(--paper-3); font-family: var(--sans); }
+
+/* ---------- Leaflet popup -> paper-card ---------- */
+.paper-popup .leaflet-popup-content-wrapper { background: transparent; box-shadow: none; border-radius: 0; padding: 0; }
+.paper-popup .leaflet-popup-content { margin: 0; font: inherit; line-height: inherit; }
+.paper-popup .leaflet-popup-tip { background: var(--paper); border: 1.5px solid var(--ink-3); box-shadow: var(--shadow-paper); }
+.paper-popup .paper-card { padding: 1.5rem 1.15rem 1.05rem; }
+.paper-popup .paper-card:hover { transform: rotate(-0.6deg); box-shadow: var(--shadow-paper); border-color: var(--ink-3); }
+.paper-popup .ty-title { margin: 0.1rem 0 0.4rem; }
+.paper-popup .ty-meta { margin: -0.2rem 0 0.5rem; }
+.paper-popup .ty-desc { display: -webkit-box; -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; margin: 0 0 0.85rem; }
+.paper-popup .pc-badges { margin-bottom: 0.4rem; }
+.paper-popup .modal-img { display: block; margin-bottom: 0.7rem; aspect-ratio: 16 / 9; object-fit: cover; }
+.leaflet-container .paper-popup a.leaflet-popup-close-button { top: 0.55rem; right: 0.55rem; width: 26px; height: 26px; border-radius: 50%; border: 1.5px solid var(--ink-3); background: var(--paper); color: var(--ink); font: 1rem/22px var(--sans); transition: all var(--transition-fast); z-index: 3; }
+.leaflet-container .paper-popup a.leaflet-popup-close-button:hover { background: var(--accent); color: var(--paper); border-color: var(--accent); transform: rotate(90deg); }
+
+/* Badges are tiny in Arivu; give them room to breathe on the map. */
+.paper-popup .pc-badge,
+.modal .pc-badge { font-size: 0.66rem; padding: 0.25rem 0.7rem; }
+
+/* ---------- Leaflet controls ---------- */
+.leaflet-container .leaflet-bar { border: 1.5px solid var(--ink-3); border-radius: var(--radius-sm); box-shadow: var(--shadow-paper); overflow: hidden; }
+.leaflet-container .leaflet-bar a { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--border-2); font-family: var(--hand); font-size: 1.3rem; transition: background var(--transition-fast); }
+.leaflet-container .leaflet-bar a:last-child { border-bottom: none; }
+.leaflet-container .leaflet-bar a:hover { background: var(--highlighter-yellow); color: var(--ink); }
+.leaflet-container .leaflet-control-attribution { background: var(--paper-2); color: var(--ink-4); font-family: var(--mono); font-size: 0.62rem; border-top-left-radius: var(--radius-sm); }
+.leaflet-container .leaflet-control-attribution a { color: var(--accent); }
+
+/* ---------- Pins: one coloured teardrop per category ---------- */
+.pin-robotics { --pin: var(--accent); }
+.pin-space    { --pin: var(--slate); }
+.pin-sciencec { --pin: var(--sage); }
+.pin-dtech    { --pin: var(--gold); }
+.pin-biotech  { --pin: color-mix(in srgb, var(--accent) 40%, var(--gold)); }
+.pin-marine   { --pin: color-mix(in srgb, var(--slate) 60%, var(--sticky-blue)); }
+.pin-other    { --pin: var(--ink-3); }
+
+.pin { position: relative; display: block; width: 26px; height: 26px; margin: 2px 1px 0; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--pin, var(--ink-3)); border: 2px solid var(--paper); box-shadow: var(--shadow-paper); transition: transform var(--transition-bounce); }
+.pin::after { content: ''; position: absolute; top: 50%; left: 50%; width: 8px; height: 8px; margin: -4px 0 0 -4px; border-radius: 50%; background: var(--paper); }
+.pin-wrap:hover .pin,
+.pin-wrap:focus-visible .pin { transform: rotate(-45deg) scale(1.15); }
+.pin-wrap:focus-visible { outline: none; }
+.pin-wrap:focus-visible .pin { box-shadow: var(--focus-ring); }
+
+/* Legend dot used inside the filter buttons */
+.pin-key { display: inline-block; flex: none; width: 0.65rem; height: 0.65rem; margin-right: 0.45rem; border-radius: 50%; background: var(--pin); border: 1.5px solid var(--paper); box-shadow: 0 0 0 1px var(--ink-3); }
+
+/* ---------- Cluster bubbles ---------- */
+.ariyam-cluster { display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--paper); color: var(--ink); border: 1.5px dashed var(--ink-3); box-shadow: var(--shadow-paper), 0 0 0 4px var(--highlighter-yellow); font-family: var(--mono); font-weight: 600; transition: transform var(--transition-bounce); }
+.ariyam-cluster:hover,
+.ariyam-cluster:focus-visible { transform: scale(1.1); border-style: solid; border-color: var(--ink); outline: none; }
+.ariyam-cluster--sm { font-size: 0.8rem; }
+.ariyam-cluster--md { font-size: 0.9rem; }
+.ariyam-cluster--lg { font-size: 1rem; }
+
+/* "You are here" dot */
+.you-dot { display: block; width: 18px; height: 18px; border-radius: 50%; background: var(--slate); border: 3px solid var(--paper); box-shadow: 0 0 0 2px var(--slate), var(--shadow-paper); }
+
+/* ---------- Docked sidebar (overlay drawer on phones) ---------- */
+.map-filter-controls {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    width: min(var(--dock-w), 88vw);
+    padding: 1rem 1.25rem 1.5rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-right: 1.5px solid var(--ink-3);
+    background: var(--paper-2);
+    background-image: var(--texture-paper);
+    box-shadow: var(--shadow-paper);
+    color: var(--ink);
+    transition: transform 0.25s ease, visibility 0s;
+}
+html.dock-closed .map-filter-controls {
+    transform: translateX(-102%);
+    visibility: hidden;
+    box-shadow: none;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+}
+
+.panel-head { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding-top: 0.35rem; }
+.panel-body { display: flex; flex-direction: column; gap: 0.65rem; }
+.map-filter-panel { display: flex; flex-direction: column; gap: 0.5rem; }
+
+#dock-tab { position: fixed; top: 1rem; left: 1rem; z-index: 1000; display: none; min-height: 44px; background: var(--paper); }
+html.dock-closed #dock-tab { display: inline-flex; align-items: center; }
+
+/* Search box */
+.map-filter-controls .pathway-search-wrap { width: 100%; max-width: none; margin: 0; }
+.map-filter-controls .pathway-search { height: 40px; padding: 0 2.4rem; border: 1.5px solid var(--border-2); background: var(--paper); box-shadow: var(--shadow-inner); font-family: var(--sans); font-size: 0.875rem; line-height: 1.2; }
+.map-filter-controls .pathway-search::placeholder { color: var(--ink-4); font-style: normal; }
+.map-filter-controls .pathway-search::-webkit-search-cancel-button { display: none; }
+.map-filter-controls .pathway-search-icon { left: 0.85rem; font-size: 1rem; }
+.map-filter-controls .search-clear:focus-visible { outline: none; box-shadow: var(--focus-ring); background: var(--highlighter-pink); }
+@media (pointer: coarse) {
+    .map-filter-controls .pathway-search { font-size: 1rem; height: 44px; }
+}
+
+/* Sidebar tweaks to shared components */
+.map-filter-controls .label { margin: 0; padding: 0; font-size: 1.05rem; }
+.map-filter-controls .pathway-counter { margin-top: 0; align-self: flex-start; }
+.map-filter-controls .no-results { padding: 0.75rem 0.5rem; font-size: 1.05rem; }
+.map-filter-controls .no-results strong { font-size: 1.15rem; }
+.map-filter-controls .faq-q { padding: 0.8rem 0; font-size: 0.85rem; }
+.map-filter-controls .faq-item.open .faq-a { padding: 0.25rem 0.25rem 1rem; }
+.map-filter-controls .hand-divider { margin: 0.25rem 0; }
+.map-filter-controls .sticky-note { width: auto; min-height: 0; align-self: flex-start; margin: 0.25rem 0.75rem 0.25rem 0.25rem; font-size: 1rem; }
+.map-filter-controls .btn-ghost { align-self: flex-start; min-height: 44px; padding: 0.6rem 1.25rem; }
+
+/* ---------- Top-right theme button ---------- */
+.map-top-right { position: fixed; top: 1rem; right: 1rem; z-index: 1000; }
+.map-top-right .theme-wrap { position: relative; display: inline-block; }
+.map-top-right .washi-tape { top: -10px; left: 50%; transform: translateX(-50%) rotate(-4deg); }
+.panel-head .washi-tape { top: -12px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+
+/* ---------- Modals ---------- */
+.welcome-actions { justify-content: space-between; align-items: center; }
+.welcome-actions .icon-btn svg { display: block; width: 18px; height: 18px; fill: currentColor; }
+.modal-actions a.modal-btn { text-decoration: none; }
+.modal-meta-item .value-sm.mono { font-family: var(--mono); font-size: 0.82rem; }
+.modal-meta-item .value-sm a { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+
+/* ---------- Toasts: under the theme button; bottom strip on phones ---------- */
+.toast-container { top: 4.5rem; }
+
+/* ---------- Phones ---------- */
+@media (max-width: 640px) {
+    .modal { padding: 1.5rem 1.25rem; }
+    .modal-name { font-size: 1.5rem; }
+    .modal-meta { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .modal-meta-item { padding: 0.6rem 0.75rem; }
+}
+
+/* ---------- Icons ---------- */
+.ico { width: 1.1em; height: 1.1em; flex: none; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.18em; }
+.theme-toggle .ico { margin-right: 0.4rem; }
+html.dark .ico-moon, html:not(.dark) .ico-sun { display: none; }
+.btn-ghost .ico, .modal-btn .ico { margin: 0 0.1rem; }
+#dock-tab .ico { margin-right: 0.4rem; }
+.map-filter-controls .pathway-search-icon { width: 1rem; height: 1rem; top: 50%; margin-top: -0.5rem; font-size: 1rem; }
+.map-filter-controls .search-clear .ico { width: 0.9rem; height: 0.9rem; }
+.modal-close .ico { width: 1rem; height: 1rem; }
+#locate-me { align-self: flex-start; min-height: 44px; }
+
+/* ---------- Misc ---------- */
+.toast { border-left-width: 1.5px; }
+html.seen #welcome-screen-modal { display: none; }
+.map-filter-controls .pathway-search-icon { transform: none; }
+.map-filter-controls .sticky-note { margin-top: 0.75rem; }
+
+.img-credit { display: block; margin: -0.6rem 0 0.9rem; font-family: var(--mono); font-size: 0.66rem; text-align: right; color: var(--ink-4); text-decoration: none; }
+.img-credit:hover { color: var(--accent); text-decoration: underline; }
+
+/* ---------- Phones: filters become a bottom sheet ----------
+   Closed = a peek strip (handle, title, search). Open = ~3/4 of the screen. */
+@media (max-width: 640px) {
+    :root { --peek: calc(8.6rem + env(safe-area-inset-bottom)); }
+    #map { left: 0; }
+    .map-filter-controls {
+        inset: auto 0 0 0;
+        width: 100%;
+        height: min(74dvh, 36rem);
+        padding: 0.55rem 1rem calc(1rem + env(safe-area-inset-bottom));
+        border-right: 0;
+        border-top: 1.5px solid var(--ink-3);
+        border-radius: 18px 18px 0 0;
+        box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.2);
+        transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    html.dock-closed .map-filter-controls {
+        transform: translateY(calc(100% - var(--peek)));
+        visibility: visible;
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.14);
+        transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .map-filter-controls::before { content: ''; flex: none; width: 2.5rem; height: 4px; margin: 0 auto; border-radius: 2px; background: var(--ink-4); opacity: 0.6; }
+    .panel-head { padding-top: 0; }
+    #dock-tab, html.dock-closed #dock-tab { display: none; }
+    #panel-collapse .ico { transform: rotate(-90deg); }
+    html.dock-closed #panel-collapse .ico { transform: rotate(90deg); }
+
+    .leaflet-bottom { bottom: var(--peek); }
+    .map-top-right { top: calc(0.75rem + env(safe-area-inset-top)); right: 0.75rem; }
+    #theme-label { display: none; }
+    .theme-toggle .ico { margin: 0; }
+    .theme-toggle { min-width: 44px; min-height: 44px; justify-content: center; }
+
+    .modal-backdrop { align-items: flex-end; padding: 0; }
+    .modal { width: 100%; max-width: none; max-height: 88dvh; border-radius: 18px 18px 0 0; padding-bottom: calc(1.5rem + env(safe-area-inset-bottom)); }
+    .toast-container { top: calc(4rem + env(safe-area-inset-top)); bottom: auto; left: 1rem; right: 1rem; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .map-filter-controls { transition: none !important; }
+}

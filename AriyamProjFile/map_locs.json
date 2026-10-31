@@ -1,203 +1,308 @@
 [
-
     {
         "id": "uwr-kochi",
-        "name": "UWR - Kochi",
-        "coords": [9.9926, 76.3214],
+        "name": "Unique World Robotics (UWR), Kochi",
+        "place": "Kochi, Kerala",
         "type": "Robotics",
-        "img": "",
-        "shortDesc": "Robotics makerspace for kids and teenagers with great facilities for Ai and robotics, the main hub of UWC in India (I think)",
-        "longDesc": "placeholder text for clicktoseemore. and i wonder, if you know. what it meannssss (yeah but he made grauation tho.) "    
+        "access": "appointment",
+        "coords": [
+            9.9926,
+            76.3214
+        ],
+        "shortDesc": "Kerala-based robotics, AI and coding training for school students. A UWR team was the first from Kerala on the World Robot Olympiad podium (2024).",
+        "longDesc": "Unique World Robotics is a Kerala start-up that teaches robotics, AI, coding and space technology to school and college students, and runs competitions. In 2024 its team Rescue Tech Allies (members aged 9 and 12) won third place in the Future Innovators Elementary category at the World Robot Olympiad in Turkey, the first Kerala team to reach that podium. It also organises the NASA Space Apps Challenge in India. Contact the centre for class and visit details.",
+        "website": "",
+        "img": ""
     },
-
     {
         "id": "uwr-thiruvananthapuram",
-        "name": "UWR - Thiruvananthapuram",
-        "coords": [8.4979, 76.9481],
+        "name": "Unique World Robotics (UWR), Thiruvananthapuram",
+        "place": "Thiruvananthapuram, Kerala",
         "type": "Robotics",
-        "img": "",
-        "shortDesc": "Robotics makerspace for kids and teenagers with great facilities for Ai and Robotics",
-        "longDesc": ""    
+        "access": "appointment",
+        "coords": [
+            8.4979,
+            76.9481
+        ],
+        "shortDesc": "Unique World Robotics centre for robotics, AI and coding training aimed at school students.",
+        "longDesc": "",
+        "website": "",
+        "img": ""
     },
-
     {
         "id": "intfablab",
         "name": "Integrated Startup Complex & Super Fab Lab",
-        "coords": [10.0428, 76.3245],
+        "place": "Kalamassery, Kochi, Kerala",
         "type": "Robotics",
-        "img": "",
-        "shortDesc": "Fabrication lab with 3D printing, laser cutting, CNC milling and other facilities for prototyping and manufacturing",
-        "longDesc": ""    
+        "access": "appointment",
+        "coords": [
+            10.0428,
+            76.3245
+        ],
+        "shortDesc": "Fab lab with 3D printing, laser cutting and CNC milling, open for prototyping and small-batch manufacturing.",
+        "longDesc": "",
+        "website": "",
+        "img": ""
     },
-
     {
         "id": "maker-village",
         "name": "Maker Village",
-        "coords": [10.0435, 76.3251],
+        "place": "Kalamassery, Kochi, Kerala",
         "type": "Robotics",
-        "img": "",
-        "shortDesc": "India's largest Electronic Incubator & ESDM facility under the aegis of MeitY, Govt of India with IIITM-K as implementation agency.",
-        "longDesc": ""    
+        "access": "appointment",
+        "coords": [
+            10.0435,
+            76.3251
+        ],
+        "shortDesc": "Electronics hardware incubator and manufacturing facility, set up under MeitY with IIITM-K as the implementing agency. Described as India's largest of its kind.",
+        "longDesc": "",
+        "website": "",
+        "img": ""
     },
-
     {
         "id": "kochi-robotics-club",
         "name": "Kochi Robotics Club",
-        "coords": [10.0076, 76.3557],
+        "place": "Kochi, Kerala",
         "type": "Robotics",
-        "img": "",
-        "shortDesc": "Provides STEM education based on robotics, engineering, automation, sustainable and renewable energy. They provide courses for kids",
-        "longDesc": ""    
+        "access": "appointment",
+        "coords": [
+            10.0076,
+            76.3557
+        ],
+        "shortDesc": "Courses for kids in robotics, engineering, automation and renewable energy.",
+        "longDesc": "",
+        "website": "",
+        "img": ""
     },
-
     {
         "id": "space-museum",
         "name": "Space Museum (ISRO-VSSC)",
-        "coords": [8.5334, 76.8673],
+        "place": "Thiruvananthapuram, Kerala",
         "type": "Space",
-        "img": "",
-        "shortDesc": "major space research centre of ISRO, focusing on rocket and space vehicles for India's satellite programm. Museum containing real rocket components, spacecraft models, launch vehicle exhibits, and interactive displays",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            8.5334,
+            76.8673
+        ],
+        "shortDesc": "VSSC is ISRO's centre for rockets and launch vehicles. The museum has real rocket parts, spacecraft models and interactive displays.",
+        "longDesc": "The VSSC Space Museum is in Thumba, in a former church building (St Mary Magdalene) where India's first sounding rocket was assembled for its November 1963 launch. ISRO lists it as open to the public; plan your visit on the museum's own page, and contact the centre before you go.",
+        "website": "https://spacemuseum.vssc.gov.in/planVisit.html",
+        "img": ""
     },
-
     {
         "id": "iist",
         "name": "Indian Institute of Space Science and Technology (IIST)",
-        "coords": [8.6225, 77.0322],
+        "place": "Valiamala, Thiruvananthapuram, Kerala",
         "type": "Space",
-        "img": "",
-        "shortDesc": "Started by ISRO to nurture space science and technology talent in India. Public events such as open days, exhibitions, and lectures are sometimes organised.",
-        "longDesc": ""    
+        "access": "events",
+        "coords": [
+            8.6225,
+            77.0322
+        ],
+        "shortDesc": "ISRO's own institute for space science and technology. Open days, exhibitions and lectures are held now and then.",
+        "longDesc": "",
+        "website": "https://www.iist.ac.in",
+        "img": ""
     },
-
     {
         "id": "hal-heritage-centre",
         "name": "HAL Heritage Centre and Aerospace Museum",
-        "coords": [12.9548, 77.6725],
+        "place": "Bengaluru, Karnataka",
         "type": "Space",
-        "img": "",
-        "shortDesc": "howcases India's aviation and aerospace history through retired aircraft, helicopters, jet engines, flight simulators, and interactive exhibits. Operated by Hindustan Aeronautics Limited (HAL)",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            12.9548,
+            77.6725
+        ],
+        "shortDesc": "Retired aircraft, helicopters, jet engines and flight simulators, run by Hindustan Aeronautics Limited.",
+        "longDesc": "",
+        "website": "https://hal-india.co.in",
+        "img": "https://commons.wikimedia.org/wiki/Special:FilePath/HAL%20Heritage%20Centre%20and%20AeroSpace%20museum.jpg?width=900",
+        "imgSource": "https://commons.wikimedia.org/wiki/File:HAL_Heritage_Centre_and_AeroSpace_museum.jpg"
     },
-
     {
         "id": "sdsc",
         "name": "Satish Dhawan Space Centre (SDSC-SHAR) Visitor Complex",
-        "coords": [13.72, 80.23],
+        "place": "Sriharikota, Andhra Pradesh",
         "type": "Space",
-        "img": "",
-        "shortDesc": "SRO's primary spaceport and the launch site for nearly all of India's orbital space missions. They organise public veiwing sessions for the visitors to see launches from a safe distance",
-        "longDesc": ""    
+        "access": "register",
+        "coords": [
+            13.72,
+            80.23
+        ],
+        "shortDesc": "ISRO's main launch site. Registered visitors can watch some launches from a safe distance.",
+        "longDesc": "Almost every Indian orbital launch happens here. Viewing is by registration for specific launches, which ISRO announces on its website. Check there before you travel.",
+        "website": "https://lvg.shar.gov.in/VSCREGISTRATION/index.jsp",
+        "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Satish%20Dhawan%20Space%20Centre.jpg?width=900",
+        "imgSource": "https://commons.wikimedia.org/wiki/File:Satish_Dhawan_Space_Centre.jpg"
     },
-
     {
         "id": "regional-science-centre",
         "name": "Regional Science Centre and Planetarium",
-        "coords": [11.2631, 75.7856],
+        "place": "Kozhikode, Kerala",
         "type": "Science Centre",
-        "img": "",
-        "shortDesc": "Large planetarium and science centre with interactive exhibits, science shows, and educational programs. Science gallerys, activity corners, aquatic life corners, science parks and more for students and those interested to explore.",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            11.2631,
+            75.7856
+        ],
+        "shortDesc": "Planetarium and science centre with interactive exhibits, science shows, activity corners and an aquatic life corner.",
+        "longDesc": "",
+        "website": "https://www.keralatourism.org/malabar/science-centre-planetarium/77",
+        "img": ""
     },
-
     {
         "id": "vijnan-sagar",
         "name": "Vijnan Sagar Science and Technology Park",
-        "coords": [10.5622, 76.2231],
+        "place": "Thrissur, Kerala",
         "type": "Science Centre",
-        "img": "",
-        "shortDesc": "Educational destination with interactive physics and chemistry labs allowing students to conduct experiments and learn scientific principles. It also includes an ISRO pavilion showcasing space technology and satelite models.",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            10.5622,
+            76.2231
+        ],
+        "shortDesc": "Hands-on physics and chemistry labs where students run experiments, plus an ISRO pavilion with satellite models.",
+        "longDesc": "",
+        "website": "",
+        "img": ""
     },
-
     {
         "id": "ksst-museum",
         "name": "KSST Museum & Priyadarsini Planetarium",
-        "coords": [8.5065, 76.9442],
+        "place": "Thiruvananthapuram, Kerala",
         "type": "Science Centre",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            8.5065,
+            76.9442
+        ],
+        "shortDesc": "Planetarium with dome shows on the solar system and the universe, an astronomy gallery, telescope sessions and workshops. Opened in 1994 and run by the Kerala State Science and Technology Museum.",
+        "longDesc": "The Priyadarsini Planetarium opened in 1994 and is run by the Kerala State Science and Technology Museum. Its dome theatre seats about 250 and shows programmes on the solar system, the wider universe, the history of space exploration and the seasonal night sky. There is also an astronomy gallery with models, photographs and information panels, occasional telescope viewing sessions led by experts, and workshops and lectures for students, teachers and the public. Kerala Tourism lists it as open Tuesday to Sunday. Show timings change, so check before you go, and arrive early on weekends and holidays when seats fill up.",
+        "website": "https://www.keralatourism.org/destination/science-technology-museum/227/",
+        "img": ""
     },
-
     {
         "id": "science-park",
         "name": "Science Park (Kannur)",
-        "coords": [11.8741, 75.3711],
+        "place": "Kannur, Kerala",
         "type": "Science Centre",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            11.8741,
+            75.3711
+        ],
+        "shortDesc": "Kannur District Panchayat's science park. Exhibits were being revamped in 2020, so confirm it is open before going.",
+        "longDesc": "Run by the Kannur District Panchayat. A 2020 news report said the park had been closed for months and was being revamped: old equipment replaced, new exhibits added, including a giant lever and an Archimedes screw. Monthly expert classes, science shows and school visits were planned. Space is limited. This may be out of date, so confirm that the park is open before you travel.",
+        "website": "",
+        "img": ""
     },
-
     {
         "id": "vitm",
         "name": "Visvesvaraya Industrial and Technological Museum (VITM)",
-        "coords": [12.9752, 77.5963],
+        "place": "Bengaluru, Karnataka",
         "type": "Science Centre",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            12.9752,
+            77.5963
+        ],
+        "shortDesc": "Bengaluru's science and technology museum near Cubbon Park, with galleries on engines, electricity, space, dinosaurs and hands-on science. Open daily.",
+        "longDesc": "The Visvesvaraya Industrial and Technological Museum, on Kasturba Road near Cubbon Park, opened on 14 July 1962 and honours the engineer Sir M. Visvesvaraya. The National Council of Science Museums took charge in 1978 and it now serves as the council's regional headquarters for South India. Galleries include the Engine Hall, the Electrotechnic Gallery, Space and Technology, a Dinosaur Corner with a full-scale Wright Flyer replica and a flight simulator, Science on a Sphere, and a Fun Science and Children's Gallery for hands-on activities. The 3D show, the planetarium (Taramandala) and the flight simulator are ticketed separately. Karnataka Tourism lists timings as 9:30 AM to 6:00 PM on all days.",
+        "website": "https://karnatakatourism.org/attractions/visvesvaraya-industrial-and-technological-museum",
+        "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Visvesvaraya%20Industrial%20and%20Technological%20Museum.jpg?width=900",
+        "imgSource": "https://commons.wikimedia.org/wiki/File:Visvesvaraya_Industrial_and_Technological_Museum.jpg"
     },
-
     {
         "id": "gd-science-museum",
         "name": "GD Science Museum & Experimenta",
-        "coords": [11.0012, 76.9745],
+        "place": "Coimbatore, Tamil Nadu",
         "type": "Science Centre",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
+        "access": "open",
+        "coords": [
+            11.0012,
+            76.9745
+        ],
+        "shortDesc": "Experimenta is an interactive science centre in Coimbatore with 120+ hands-on exhibits on motion, optics, mechanics, sound and energy, plus STEM labs.",
+        "longDesc": "Experimenta is an interactive science and technology centre of roughly 40,000 sq ft, with over 120 exhibits on themes such as motion, optics, mechanics, sound and energy. Information boards and science communicators help visitors, and its STEM labs are mainly used for school activities. It is on the second floor (lift or ramp access), and about three hours is a good amount of time for a visit.",
+        "website": "",
+        "img": ""
     },
-
     {
-        "id": "duck",
+        "id": "duk",
         "name": "Digital University Kerala (DUK)",
-        "coords": [8.5639, 76.8814],
+        "place": "Technopark, Thiruvananthapuram, Kerala",
         "type": "Deep Tech",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
+        "access": "appointment",
+        "coords": [
+            8.5639,
+            76.8814
+        ],
+        "shortDesc": "State university for digital sciences at Technopark, Thiruvananthapuram, offering M.Tech, M.Sc, MBA and PhD programmes. Upgraded in 2020 from IIITM-K.",
+        "longDesc": "The Kerala University of Digital Sciences, Innovation and Technology (Digital University Kerala) is a state university in Thiruvananthapuram. It was established on 1 July 2020, when the Indian Institute of Information Technology and Management, Kerala (IIITM-K, founded in 2000) was upgraded. It offers postgraduate and doctoral programmes, including M.Tech, M.Sc, MBA and PhD, plus diploma and executive education courses, through schools of computer science and engineering, digital humanities and liberal arts, digital sciences, electronic systems and automation, and informatics. Its listed campus is at Technopark Phase IV (Technocity), Pallippuram.",
+        "website": "https://duk.ac.in",
+        "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Digital%20University%20Kerala%2001.jpg?width=900",
+        "imgSource": "https://commons.wikimedia.org/wiki/File:Digital_University_Kerala_01.jpg"
     },
-
-    {   "id": "cdac-technopark",
+    {
+        "id": "cdac-technopark",
         "name": "C-DAC Technopark",
-        "coords": [8.5562, 76.8821],
+        "place": "Technopark, Thiruvananthapuram, Kerala",
         "type": "Deep Tech",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
+        "access": "appointment",
+        "coords": [
+            8.5562,
+            76.8821
+        ],
+        "shortDesc": "Thiruvananthapuram branch of C-DAC, a national centre of excellence for electronics and IT research under MeitY, working on speech tools, chip design, power electronics and medical informatics.",
+        "longDesc": "C-DAC Thiruvananthapuram is part of the Centre for Development of Advanced Computing, a national centre of excellence for applied research and development in electronics and IT, operated under MeitY. Its work includes Malayalam speech and language tools, power electronics for Indian Railways, an ASIC design centre running since 1989 (with involvement in VEGA RISC-V processors), strategic electronics such as sonar systems, and medical informatics such as telemedicine. Its training arm runs courses in cyber security, web technologies, embedded systems and IoT, and the ER&DCI Institute of Technology offers M.Tech programmes. The main office is at Vellayambalam; the training centre is at Technopark.",
+        "website": "https://www.cdac.in",
+        "img": ""
     },
-
     {
         "id": "iisc",
         "name": "Indian Institute of Science (IISc) & CeNSE",
-        "coords": [13.0184, 77.5647],
+        "place": "Bengaluru, Karnataka",
         "type": "Deep Tech",
-        "img": "./imgs/iisc.jpg",
-        "shortDesc": "One of indias top research institutes featuring nanotechnology and microprocessor technology labs (CeNSE) and top deep-tech labs. Campus visits are restricted and require prior approval, except during the massive annual Open Day...",
-        "longDesc": ""    
+        "access": "events",
+        "coords": [
+            13.0184,
+            77.5647
+        ],
+        "shortDesc": "Research institute that houses the Centre for Nano Science and Engineering (CeNSE). Visits need prior approval, except on the annual Open Day.",
+        "longDesc": "",
+        "website": "https://iisc.ac.in",
+        "img": "https://commons.wikimedia.org/wiki/Special:FilePath/Main%20Building%2C%20Indian%20Institute%20of%20Science%2C%20Bangalore%2C%20Karnataka%2C%20India%20%282017%29.jpg?width=900",
+        "imgSource": "https://commons.wikimedia.org/wiki/File:Main_Building,_Indian_Institute_of_Science,_Bangalore,_Karnataka,_India_(2017).jpg"
     },
-
     {
         "id": "rajiv-gandhi-centre",
         "name": "Rajiv Gandhi Centre for Biotechnology (RGCB)",
-        "coords": [8.4812, 76.9631],
+        "place": "Poojappura, Thiruvananthapuram, Kerala",
         "type": "Biotech",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
+        "access": "appointment",
+        "coords": [
+            8.4812,
+            76.9631
+        ],
+        "shortDesc": "Autonomous molecular biology and biotechnology research institute under the Department of Biotechnology, working on cancer, neurobiology, plant biotechnology and more.",
+        "longDesc": "The Rajiv Gandhi Centre for Biotechnology is an autonomous research institute for molecular biology and biotechnology, under the Department of Biotechnology, Government of India. Its main campus is at Thycaud Post, Poojappura. Research areas include cancer, cardiovascular disease and diabetes, pathogen biology, regenerative biology, plant biotechnology, neurobiology and reproduction biology. The institute has hosted school and college student visits as part of its outreach, so contact RGCB before planning a visit.",
+        "website": "https://rgcb.res.in",
+        "img": ""
     },
-
     {
         "id": "cmfri",
         "name": "Central Marine Fisheries Research Institute (CMFRI)",
-        "coords": [9.9821, 76.2734],
+        "place": "Kochi, Kerala",
         "type": "Marine Science",
-        "img": "",
-        "shortDesc": "",
-        "longDesc": ""    
-        
+        "access": "events",
+        "coords": [
+            9.9821,
+            76.2734
+        ],
+        "shortDesc": "ICAR marine fisheries institute with the National Marine Biodiversity Museum (sunfish, oarfish, whale sharks) and a new Marine Megafauna Museum. Opens to the public on its Foundation Day, 3 February.",
+        "longDesc": "ICAR-CMFRI is a central marine fisheries research institute based in Kochi. Its National Marine Biodiversity Museum holds specimens such as sunfish, oarfish, giant clams and whale sharks, and the newly launched Marine Megafauna Museum features a 14-metre Bryde's whale skeleton and underwater recordings of marine mammals. On its Foundation Day (3 February) the institute has opened its museums, live-organism displays, laboratories, hatcheries and library to the public, with awareness sessions and career workshops. Check with the institute about visits at other times.",
+        "website": "https://www.cmfri.org.in",
+        "img": "https://commons.wikimedia.org/wiki/Special:FilePath/CMFRI%20Headquarters%20in%20Kochi.jpg?width=900",
+        "imgSource": "https://commons.wikimedia.org/wiki/File:CMFRI_Headquarters_in_Kochi.jpg"
     }
-
-] 
+]

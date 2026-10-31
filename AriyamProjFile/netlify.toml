@@ -1,0 +1,43 @@
+[build]
+  publish = "."
+  # runs postinstall, which copies Fuse.js into vendor/
+  command = "npm install"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(self)"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' https://unpkg.com https://cdn.jsdelivr.net 'sha256-JOilLVwi5AnYC+CLqU737XcLo6tQ8Xmqtc7Og7jMnQw=' 'sha256-C7EIIXBjbY+MUNH1XcnJd7Idhr+YnnLyQIeOkE4QF5w='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://commons.wikimedia.org https://upload.wikimedia.org https://tile.openstreetmap.org https://*.basemaps.cartocdn.com; connect-src 'self' https://tile.openstreetmap.org https://*.basemaps.cartocdn.com; frame-ancestors 'none'; base-uri 'self'; form-action 'none'"
+
+[[headers]]
+  for = "/vendor/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/icons/*"
+  [headers.values]
+    Cache-Control = "public, max-age=2592000"
+
+[[headers]]
+  for = "/map_locs.json"
+  [headers.values]
+    Cache-Control = "public, max-age=300, must-revalidate"
+
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

@@ -3,330 +3,198 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Ariyam: STEM places in Kerala and South India</title>
+    <meta name="description" content="A student-made map of labs, planetariums, makerspaces and research institutes in Kerala and nearby states that you can visit.">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" id="meta-theme-color" content="#f5ecd6">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Ariyam">
+    <meta property="og:title" content="Ariyam: STEM places in Kerala and South India">
+    <meta property="og:description" content="A student-made map of labs, planetariums, makerspaces and research institutes you can visit.">
+    <meta name="twitter:card" content="summary">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath d='M16 30C10 22 6 17.5 6 12.5a10 10 0 0 1 20 0C26 17.5 22 22 16 30z' fill='%23c8342a'/%3E%3Ccircle cx='16' cy='12.5' r='4' fill='%23f5ecd6'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/favicon-32.png">
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png">
+    <link rel="manifest" href="./site.webmanifest">
+
+    <!-- Theme + sidebar state before first paint. 'arivu-theme' is shared with Arivu. -->
+    <script>
+        (function () {
+            var dark = false;
+            try {
+                var t = localStorage.getItem('arivu-theme');
+                if (!t) { var old = localStorage.getItem('darkMode'); if (old !== null) t = old === 'true' ? 'dark' : 'light'; }
+                dark = t ? t === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
+            } catch (e) { }
+            var root = document.documentElement;
+            if (dark) {
+                root.classList.add('dark');
+                var m = document.getElementById('meta-theme-color');
+                if (m) m.setAttribute('content', '#18160f');
+            }
+            if (window.matchMedia('(max-width: 640px)').matches) root.classList.add('dock-closed');
+            try { if (localStorage.getItem('ariyam-seen')) root.classList.add('seen'); } catch (e) { }
+        })();
+    </script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Noto+Sans+Malayalam:wght@300;400;500;700&family=IBM+Plex+Mono:wght@300;400;500&family=Caveat:wght@400;500;600;700&family=Kalam:wght@300;400;700&display=swap"
-        rel="stylesheet">
-    <link href="./src/output.css" rel="stylesheet">
-    <link rel="stylesheet" href="../../shared.css">
-    <title>Ariyam - Kerala STEM Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+Malayalam:wght@400;500&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@400;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://unpkg.com" crossorigin>
+    <link rel="preload" href="map_locs.json" as="fetch" crossorigin>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" href="./shared.css">
+    <link rel="stylesheet" href="./ariyam.css">
 </head>
 
 <body>
-    <div id="welcome-screen-modal" class="fixed inset-0 z-5000 flex items-center justify-center bg-[var(--ink)]/30">
-        <div class="bg-[var(--paper)] bg-[image:var(--texture-paper)] p-10 rounded-xl shadow-[var(--shadow-paper)] flex flex-col gap-4 w-[90vw] sm:w-[80vw] md:w-[70vw] lg:w-[65vw] max-w-5xl border border-[var(--border)] transition-colors duration-300">
-            <h1 class="text-3xl font-jaro mb-2 tracking-[0.2em] text-[var(--ink)]">
-                Welcome to Ariyam!
-            </h1>
-            <div id="Modal-Images" class="bg-[var(--paper-2)] bg-[image:var(--texture-paper)] rounded-[var(--radius-sm)] border border-[var(--border)] overflow-hidden aspect-[5/2] shadow-[var(--shadow-sm)]">
-            </div>
-            <p class="text-sm md:text-lg text-justify font-inder leading-relaxed text-[var(--ink-2)]">
-                Ariyam is a student made map of STEM locations in Kerala and neighbouring states of South India.
-                It is built to help students interested in related fields to find out more about their passion by going to certain locations that help nurture their interests.
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+        <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></symbol>
+        <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+        <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+        <symbol id="i-left" viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></symbol>
+        <symbol id="i-out" viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></symbol>
+        <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+        <symbol id="i-locate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="8"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></symbol>
+    </svg>
+    <div id="cursor" aria-hidden="true">
+        <div id="cursor-ring"></div>
+        <div id="cursor-dot"></div>
+    </div>
+
+    <!-- Welcome dialog. The badges double as a legend for the six categories. -->
+    <div id="welcome-screen-modal" class="modal-backdrop show">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="welcome-title">
+            <div class="modal-cat">a student project</div>
+            <h1 class="modal-name" id="welcome-title">Ariyam</h1>
+            <p class="modal-desc">
+                A map of places in Kerala and nearby states where you can see science, space, robotics and biotech up close: planetariums, makerspaces, research institutes, museums.
+                Pin colours match the categories below. Details change, so check with a place before you go.
             </p>
-            <div class="flex justify-between items-center w-full">
-                <button class="btn-primary" onclick="closeModal()">
-                         Explore Ariyam?
-                </button>
-                <div id="links-wrapper" class="inline-flex self-start p-1 bg-[var(--paper-3)] rounded-[var(--radius-sm)] items-center shadow-[var(--shadow-sm)]">
-                    <a href="https://github.com/Aadi-Mahesh" target="_blank" rel="noopener noreferrer" class="group relative flex items-center">
-                        <img src="./icons/github.svg" alt="GitHub" class="w-6 h-6 transition-transform duration-200 group-hover:scale-110">
-                        <span class="absolute right-full m-2 whitespace-nowrap rounded-[var(--radius-sm)] bg-[var(--ink)] px-2 py-1 text-[var(--paper)] opacity-0 pointer-events-none transition-all duration-300 group-hover:opacity-100">
-                            @Aadi-Mahesh
-                        </span>
-                    </a>
+            <div class="pc-badges" role="group" aria-label="Categories on the map">
+                <span class="pc-badge pc-badge-diff-advanced">Robotics</span>
+                <span class="pc-badge pc-badge-exam">Space</span>
+                <span class="pc-badge pc-badge-diff-beginner">Science Centre</span>
+                <span class="pc-badge pc-badge-diff-intermediate">Deep Tech</span>
+                <span class="pc-badge pc-badge-diff-beginner">Biotech</span>
+                <span class="pc-badge pc-badge-exam">Marine Science</span>
+            </div>
+            <div class="modal-actions welcome-actions">
+                <button type="button" class="btn-primary" id="welcome-start">Open the map</button>
+                <a href="https://github.com/Aadi-Mahesh" target="_blank" rel="noopener noreferrer" class="icon-btn" aria-label="GitHub: @Aadi-Mahesh (opens in a new tab)" title="@Aadi-Mahesh">
+                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lets the welcome button work even if ariyam.js fails to run -->
+    <script>
+        (function () {
+            var w = document.getElementById('welcome-screen-modal'), b = document.getElementById('welcome-start');
+            function close() { setTimeout(function () { w.classList.remove('show'); }, 0); }
+            if (b) b.addEventListener('click', close);
+            document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+        })();
+    </script>
+
+    <noscript>
+        <div class="toast-container"><div class="toast show warn"><span>The map needs JavaScript. Please enable it and reload.</span></div></div>
+    </noscript>
+
+    <div class="map-top-right">
+        <div class="theme-wrap">
+            <div class="washi-tape wt-yellow" aria-hidden="true"></div>
+            <button id="theme-toggle" type="button" class="theme-toggle"><svg class="ico ico-moon" aria-hidden="true"><use href="#i-moon"/></svg><svg class="ico ico-sun" aria-hidden="true"><use href="#i-sun"/></svg><span id="theme-label">Dark mode</span></button>
+        </div>
+    </div>
+
+    <!-- Reopens the sidebar -->
+    <button type="button" id="dock-tab" class="btn-ghost" aria-controls="dock" aria-expanded="false"><svg class="ico" aria-hidden="true"><use href="#i-menu"/></svg>Filters</button>
+
+        <aside id="dock" class="map-filter-controls" aria-label="Map search and filters">
+        <div class="panel-head">
+            <div class="washi-tape wt-yellow" aria-hidden="true"></div>
+            <span class="nav-logo">Ariyam</span>
+            <button type="button" class="icon-btn" id="panel-collapse" aria-controls="dock" aria-expanded="true" aria-label="Close sidebar"><svg class="ico" aria-hidden="true"><use href="#i-left"/></svg></button>
+        </div>
+
+        <div class="panel-body">
+            <div class="pathway-search-wrap">
+                <svg class="ico pathway-search-icon" aria-hidden="true"><use href="#i-search"/></svg>
+                <input id="search-box" class="pathway-search" type="search" placeholder="Search places" aria-label="Search places" autocomplete="off" enterkeyhint="search">
+                <button class="search-clear" id="search-clear" type="button" aria-label="Clear search"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
+            </div>
+
+            <div id="filter-panel" class="map-filter-panel">
+                <h2 class="label" id="filter-heading">category</h2>
+                <div id="filter-options" class="filter-bar" role="group" aria-labelledby="filter-heading">
+                    <button type="button" class="f-btn" data-type="Robotics" aria-pressed="false"><span class="pin-key pin-robotics" aria-hidden="true"></span>Robotics</button>
+                    <button type="button" class="f-btn" data-type="Space" aria-pressed="false"><span class="pin-key pin-space" aria-hidden="true"></span>Space</button>
+                    <button type="button" class="f-btn" data-type="Science Centre" aria-pressed="false"><span class="pin-key pin-sciencec" aria-hidden="true"></span>Science Centre</button>
+                    <button type="button" class="f-btn" data-type="Deep Tech" aria-pressed="false"><span class="pin-key pin-dtech" aria-hidden="true"></span>Deep Tech</button>
+                    <button type="button" class="f-btn" data-type="Biotech" aria-pressed="false"><span class="pin-key pin-biotech" aria-hidden="true"></span>Biotech</button>
+                    <button type="button" class="f-btn" data-type="Marine Science" aria-pressed="false"><span class="pin-key pin-marine" aria-hidden="true"></span>Marine Science</button>
                 </div>
             </div>
+
+            <div class="pathway-counter" id="map-counter" role="status" aria-live="polite">
+                <span>Showing <strong id="visible-count">0</strong> of <strong id="total-count">0</strong> places</span>
+                <button type="button" class="filter-reset" id="filter-reset">reset</button>
+            </div>
+            <div class="no-results" id="no-results" hidden><strong>Nothing matches.</strong>Try another word or reset the filters.</div>
+
+            <button type="button" class="btn-ghost" id="locate-me"><svg class="ico" aria-hidden="true"><use href="#i-locate"/></svg>Near me</button>
+
+            <div class="sticky-note">Click a pin for details. A numbered circle is a group of pins: click it to zoom in.</div>
+
+            <div class="faq-list">
+                <div class="faq-item">
+                    <button class="faq-q" type="button" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1">What is this?<span class="faq-icon" aria-hidden="true">+</span></button>
+                    <div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1">A map of places in Kerala and nearby states where students can see STEM work in person. It is a student project, not an official directory.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" type="button" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">Can I just turn up?<span class="faq-icon" aria-hidden="true">+</span></button>
+                    <div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2">Often not. Some institutes only open to the public on set days, and hours and entry rules vary. Check the official website or call first.</div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-q" type="button" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">How accurate is it?<span class="faq-icon" aria-hidden="true">+</span></button>
+                    <div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3">Pins are approximate and descriptions can go out of date. Confirm details with the place itself.</div>
+                </div>
+            </div>
+
+            <a class="btn-ghost" href="https://arivu-pallakad.netlify.app/" rel="noopener">Careers on Arivu<svg class="ico" aria-hidden="true"><use href="#i-right"/></svg></a>
+        </div>
+    </aside>
+
+        <div class="modal-backdrop" id="loc-modal-backdrop">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="loc-modal-name">
+            <button type="button" class="modal-close" id="loc-modal-close" aria-label="Close"><svg class="ico" aria-hidden="true"><use href="#i-close"/></svg></button>
+            <img class="modal-img" id="loc-modal-img" alt="" decoding="async">
+            <a class="img-credit" id="loc-modal-credit" target="_blank" rel="noopener noreferrer" hidden>Photo: Wikimedia Commons</a>
+            <h2 class="modal-name" id="loc-modal-name"></h2>
+            <div class="modal-inst" id="loc-modal-inst"></div>
+            <div class="modal-badges" id="loc-modal-badges"></div>
+            <p class="modal-desc" id="loc-modal-desc"></p>
+            <div class="modal-meta" id="loc-modal-meta"></div>
+            <div class="modal-actions">
+                <a class="modal-btn primary" id="loc-modal-directions" target="_blank" rel="noopener noreferrer" href="#">Directions<svg class="ico" aria-hidden="true"><use href="#i-out"/></svg></a>
+                <a class="modal-btn" id="loc-modal-website" target="_blank" rel="noopener noreferrer" href="#" hidden>More info<svg class="ico" aria-hidden="true"><use href="#i-out"/></svg></a>
+                <button type="button" class="modal-btn" id="loc-modal-share">Share</button>
+                <button type="button" class="modal-btn" id="loc-modal-close2">Close</button>
+            </div>
         </div>
     </div>
 
-    <button id="toggle-btn" onclick="toggleDarkMode()" class="btn-ghost">
-            Make it Night!
-    </button>
+    <div id="map" role="region" aria-label="Map of STEM places"></div>
 
-    <div class="">
-        <input type="text" id="search-box" placeholder="Search for a location..." class="absolute top-5 left-8 z-1000 bg-[var(--paper)] bg-[image:var(--texture-paper)] text-[var(--ink)] px-4 py-2 rounded-[var(--radius-sm)] shadow-[var(--shadow-sm)] border border-[var(--border)] transition-colors duration-300 w-64 focus:outline-none">
-        <!-- Filter Panel -->
-        <div class="absolute top-17 left-8 z-1000
-            bg-[var(--paper-2)] bg-[image:var(--texture-paper)]
-            text-[var(--ink)]
-            p-4
-            rounded-[var(--radius-sm)]
-            shadow-[var(--shadow-paper)]
-            border border-[var(--border)]
-            flex flex-col gap-2
-            w-64
-            transition-colors duration-300">
-            <h2 class="text-sm font-semibold mb-2 tracking-[0.2em] text-[var(--ink)]">
-                Filter through:
-            </h2>
-            <div class="flex items-center gap-2">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" id="filter-robotics" data-type="Robotics" onchange="filterLocation()">
-                    Robotics
-                </label>
-            </div>
-            <div class="flex items-center gap-2">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" id="filter-space" data-type="Space" onchange="filterLocation()">
-                    Space
-                </label>
-            </div>
-            <div class="flex items-center gap-2">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" id="filter-science-centre" data-type="Science Centre" onchange="filterLocation()">
-                    Science Centre
-                </label>
-            </div>
-            <div class="flex items-center gap-2">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" id="filter-deep-tech" data-type="Deep Tech" onchange="filterLocation()">
-                    Deep Tech
-                </label>
-            </div>
-            <div class="flex items-center gap-2">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" id="filter-biotech" data-type="Biotech" onchange="filterLocation()">
-                    Biotech
-                </label>
-            </div>
-            <div class="flex items-center gap-2">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" id="filter-marine-science" data-type="Marine Science" onchange="filterLocation()">
-                    Marine Science
-                </label>
-            </div>
-        </div>
-    </div>
-    </div>
-    <div id="map" style="height:100vh; width:100%;"></div>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script type="module">
-        import Fuse from './vendor/fuse.min.mjs';
-
-                              const typeIcons = {
-    "Robotics": "./icons/robotics.svg",
-    "Space": "./icons/space.svg",
-    "Science Centre": "./icons/sciencec.svg",
-    "Deep Tech": "./icons/dtech.svg",
-    "Biotech": "./icons/biotech.svg",
-    "Marine Science": "./icons/marine.svg"
-};
-
-           function closeModal() {
-             document.getElementById('welcome-screen-modal').classList.add('hidden');
-           } 
-           window.closeModal = closeModal;
-
-            const map = L.map('map').setView([10.8505, 76.2711], 7);
-
-        const lightLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-        });
-
-        const darkLayer = L.tileLayer(
-            'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
-            {
-                attribution: '&copy; OpenStreetMap & CARTO contributors'
-            }
-        );
-
-        lightLayer.addTo(map);
-
-       
-        let darkMode = localStorage.getItem('darkMode') === 'true';
-
-        function applyDarkModeState() {
-            if (darkMode) {
-                document.documentElement.classList.add('dark');
-                if (map.hasLayer(lightLayer)) map.removeLayer(lightLayer);
-                darkLayer.addTo(map);
-                document.getElementById('toggle-btn').textContent = 'Make it Day!';
-            } else {
-                document.documentElement.classList.remove('dark');
-                if (map.hasLayer(darkLayer)) map.removeLayer(darkLayer);
-                lightLayer.addTo(map);
-                document.getElementById('toggle-btn').textContent = 'Make it Night!';
-            }
-            localStorage.setItem('darkMode', darkMode);
-        }
-
-        function toggleDarkMode() {
-            darkMode = !darkMode;
-            applyDarkModeState();
-        }
-
-        function showDetails (id) {
-            document.getElementById('locs-content-modal');
-            document.getElementById('inner-div-locs');
-            loc.marker.closePopup();
-
-        }
-
-        window.toggleDarkMode = toggleDarkMode;
-
-        // apply initial state
-        applyDarkModeState();
- 
-        async function loadLocs() {
-            try {
-                const resp = await fetch('map_locs.json');
-
-                if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-                
-                const locations = await resp.json();
-        
-
-                locations.forEach(loc => {
-                
-         
-                const icon = L.divIcon({
-                    html: `<img src="${typeIcons[loc.type] || './icons/default.svg'}" style="width:30px; height:30px;">`,
-                    className: '',
-                    iconSize: [30, 30],
-                    iconAnchor: [15, 15]
-                });
-
-                const marker = L.marker(loc.coords,  {
-                   icon: icon
-                }).addTo(map);
-                    loc.marker = marker;
-                    marker.bindPopup(`
-                        ${loc.img ? `<img src="${loc.img}" style="width:150px; border-radius:8px; margin-bottom:6px; display:block;">` : ''}
-                        <b style="font-size:14px; font-family:sans-serif;">${loc.name}</b>
-                        <div style="font-size:12px; margin-top:6px; line-height:1.4;">
-                            ${loc.shortDesc || ''}
-                        </div>
-                         <div>
-                        <a href="" id="readmore" style="" onClick="showDetails('${loc.id}') return false"> Read More! </a>
-                               
-                        </div>
-                    `);
-                });
-
-                window.locations = locations;
-                
-                //copy paste changed location of ts
-           // ensure each loc has an id
-
-             window.locations.forEach((loc, idx) => {
-                      loc.id = loc.id || `loc-${idx}`; 
-});
-             function seemore (readmore) {
-                
-             }
-
-
-        // initialize Fuse after locations are set
-        const fuseSearch = new Fuse(window.locations, {
-            keys: ['name', 'shortDesc', 'type'],
-            threshold: 0.4,
-            includeScore: true,
-        });
-        window.fuseSearch = fuseSearch;
-          filterLocation(); 
-        // debounce helper
-        function debounce(fn, wait = 180) {
-            let t;
-            return function(...args) {
-                clearTimeout(t);
-                t = setTimeout(() => fn.apply(this, args), wait);
-            };
-        }
-
-        const searchBox = document.getElementById('search-box');
-        searchBox.addEventListener('input', debounce((e) => {
-            const q = (e.target.value || '').trim();
-            const results = q ? fuseSearch.search(q).map(r => r.item) : window.locations;
-            applySearchResults(results, q);
-        }, 180));
-
-        // unified visibility function: accepts raw items
-        
-
-            } catch (err) {
-                console.error('Failed to load locations:', err);
-                window.locations = [];
-            }
-        }
-              
-        loadLocs();
-        
-        function applySearchResults(items, query) {
-            
-            const matchingIds = new Set(items.map(i => i.id));
-                 
-            const checkboxes = document.querySelectorAll('input[type="checkbox"][data-type]');
-            const selectedTypes = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.getAttribute('data-type'));
-            const showAllTypes = selectedTypes.length === 0;
-            const showAllSearch = query === '';
-
-            (window.locations || []).forEach(loc => {
-                const passesSearch = showAllSearch || matchingIds.has(loc.id);
-                const passesType = showAllTypes || selectedTypes.includes(loc.type);
-                if (passesSearch && passesType) {
-                    loc.marker.addTo(map);
-                } else if (loc.marker && map.hasLayer(loc.marker)) {
-                    map.removeLayer(loc.marker);
-                }
-            });
-        }
-        
-
-
-
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    const lat = position.coords.latitude;
-                    const lng = position.coords.longitude;
-
-                    map.setView([lat, lng], 13);
-
-                         const userIcon = L.divIcon({
-                                                       html: `<img src="./icons/location.svg" style="width:30px; height:30px;">`,
-                                                      className: '',
-                                                        iconSize: [40, 40],
-                                                        iconAnchor: [15, 15]
-                                                    });
-
-                    const userMarker = L.marker([lat, lng], { icon: userIcon }).addTo(map);
-                    userMarker.bindPopup("You are here!").openPopup();
-                },
-                (err) => {
-                    console.warn(`Geolocation error (${err.code}): ${err.message}`);
-                },
-                { timeout: 20000 }
-            );
-        } else {
-            console.warn("Geolocation is not supported by this browser.");
-        }
-
-        // Can be changed to support any given loc? 26/7/26.
-        //changed 27/7/26 to support any given loc
-        //Change to compute search and call applysearchreults 13/8/26
-
-        function filterLocation() {
-        const q = document.getElementById('search-box').value.trim();
-         
-        const results = q ? window.fuseSearch.search(q).map(r => r.item)
-         : window.locations;
-        applySearchResults(results, q);
-
-        
-        }
-
-        window.filterLocation = filterLocation;
-
-        
-           //ta daaa, the end
-
-
-      
-    </script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script type="module" src="./ariyam.js"></script>
 </body>
 
 </html>
