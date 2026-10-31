@@ -1,9 +1,0 @@
-[33m503b735[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Describe the changes to index and .gitignore
-[33me1d1e10[m Add custom icons and update README for new features
-[33m88b9a39[m Ignore node_modules
-[33ma220e3b[m Add binaries and documentation for @tailwindcss/oxide and lightningcss for linux-x64-musl
-[33m41c7e16[m feat: add unique IDs to STEM locations in map_locs.json for improved search functionality
-[33m485d86b[m chore: add fuse.js library and update package files
-[33me941353[m Node module changes, changed dark mode toggle to now support the filter button and itself. Added new locs descriptions and updated Tailwind. as it had some problems
-[33mb4fafa3[m Added README file
-[33m8fbb524[m Initial commit
