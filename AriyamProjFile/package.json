@@ -2,15 +2,17 @@
   "name": "ariyam-project",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "build": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --minify",
-    "watch": "npx @tailwindcss/cli -i ./src/input.css -o ./src/output.css --watch"
+  "description": "Ariyam: a student-made map of STEM locations in Kerala and neighbouring states of South India.",
+  "engines": {
+    "node": ">=20"
   },
-  "devDependencies": {
-    "@tailwindcss/cli": "^4.3.3",
-    "@tailwindcss/postcss": "^4.3.3",
-    "autoprefixer": "^10.5.4",
-    "postcss": "^8.5.23",
-    "tailwindcss": "^4.3.3"
+  "scripts": {
+    "postinstall": "node scripts/copy-vendor.mjs",
+    "dev": "npx --yes serve . -l 5173",
+    "validate": "node scripts/validate-data.mjs",
+    "validate:links": "node scripts/validate-data.mjs --links"
+  },
+  "dependencies": {
+    "fuse.js": "^7.1.0"
   }
 }

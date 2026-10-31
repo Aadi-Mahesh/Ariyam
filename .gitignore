@@ -35,9 +35,20 @@ out/
 coverage/
 coverage-report/
 
-# Tailwind compiled outputs (ignore generated CSS)
+# Tailwind / generated frontend assets
 AriyamProjFile/src/output.css
 AriyamProjFile/src/output-cli.css
+AriyamProjFile/src/ariyam.css
+AriyamProjFile/src/map.js
+AriyamProjFile/vendor/
+AriyamProjFile/vendor/**
+
+# Local generated files and scratch assets
+AriyamProjFile/godwhydidiuseAi.png
+AriyamProjFile/2108.00018v2.pdf
+AriyamProjFile/icons/assistant-backup/
+AriyamProjFile/**/images/
+AriyamProjFile/**/images/**
 
 # Misc
 *.tmp
@@ -48,13 +59,6 @@ AriyamProjFile/src/output-cli.css
 *.pem
 *.key
 
-# Keep vendor/ if you intentionally vendored libs; don't ignore vendor/
-# If you want to ignore everything under vendor/, uncomment the next line:
-# vendor/
-
-# Ignore icon backup folder created during edits
-AriyamProjFile/icons/assistant-backup/
-
 # Editor swap and temporary files
 *~
 *.swp
@@ -64,5 +68,6 @@ AriyamProjFile/icons/assistant-backup/
 .local/
 tmp/
 .cache/
-AriyamProjFile/godwhydidiuseAi.png
-AriyamProjFile/2108.00018v2.pdf
+
+# Local editor scratch files
+nano.*.save
