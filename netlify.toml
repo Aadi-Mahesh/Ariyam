@@ -1,0 +1,4 @@
+# The site lives in AriyamProjFile/. Its own netlify.toml (publish, build
+# command, headers) is picked up once the base directory points there.
+[build]
+  base = "AriyamProjFile"
